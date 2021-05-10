@@ -3,6 +3,8 @@ from .models import Post
 
 
 class PostSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name', read_only=True)
+
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'published', 'status')
+        fields = ('id', 'category', 'title',  'content', 'published')
