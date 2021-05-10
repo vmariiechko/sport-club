@@ -1,5 +1,41 @@
 .Header {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #dedede;
+}
+
+.HeaderInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+}
+
+.Logo {
+    width: 100%;
+}
+
+.Logo > div {
+    width: 100%;
+}
+
+.Navbar {
+    display: flex;
     flex-direction: row;
-    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-family: 'Noticia Text', serif;
+}
+
+.Navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.Navbar a:hover {
+    text-decoration: underline;
 }
