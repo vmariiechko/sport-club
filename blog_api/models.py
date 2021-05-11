@@ -3,13 +3,19 @@ from django.utils import timezone
 
 
 class Category(models.Model):
+    """Model to represent category for posts."""
+
     name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name
 
 
 class Post(models.Model):
+    """Model to represent blog posts."""
 
     class PostObjects(models.Manager):
         def get_queryset(self):

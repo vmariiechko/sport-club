@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'api.apps.ApiConfig',
     'blog_api.apps.BlogApiConfig',
+    'cards_api.apps.CardsApiConfig',
 
     'rest_framework',
     'corsheaders',
