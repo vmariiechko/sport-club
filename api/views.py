@@ -5,8 +5,10 @@ from rest_framework.response import Response
 
 class APIOverview(APIView):
     api_urls = {
-        'Posts': '/posts',
-        'Posts detail': '/posts/{id}'
+        'Post List': '/posts',
+        'Post': '/posts/{id}',
+        'Pass List': '/passes',
+        'Pass': '/passes/{id}',
     }
 
     def get(self, request):
