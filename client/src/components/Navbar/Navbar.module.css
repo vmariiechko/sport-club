@@ -1,0 +1,62 @@
+.Navbar {
+    width: 100%;
+}
+
+.Tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Noticia Text', serif;
+}
+
+.Tabs a {
+    text-decoration: none;
+    color: black;
+}
+
+.Tabs a:hover {
+    text-decoration: underline;
+}
+
+.Burger {
+    display: none;
+}
+
+.Layout {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: .5;
+    z-index: 0;
+}
+
+i {
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .Tabs {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 35px;
+        z-index: 1;
+    }
+    .Burger {
+        display: inline-block;
+        margin: 0 auto;
+        z-index: 1;
+    }
+    .Navbar {
+        display: flex;
+        justify-content: center;
+    }
+}

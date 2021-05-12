@@ -11,7 +11,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 400px;
+    width: 600px;
+    padding: 10px 15px;
 }
 
 .Logo {
@@ -20,22 +21,15 @@
 
 .Logo > div {
     width: 100%;
-}
-
-.Navbar {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-family: 'Noticia Text', serif;
+    justify-content: center;
 }
 
-.Navbar a {
-    text-decoration: none;
-    color: black;
-}
-
-.Navbar a:hover {
-    text-decoration: underline;
+@media (max-width: 500px) {
+    .Header {
+        height: 70px;
+    }
+    .HeaderInner {
+        padding: 0;
+    }
 }
