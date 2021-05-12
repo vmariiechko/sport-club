@@ -7,4 +7,4 @@ class PassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pass
-        fields = ('id', 'name', 'title', 'descripion',  'pricePerMonth')
+        fields = ('id', 'name', 'title', 'image', 'descripion',  'pricePerMonth')
