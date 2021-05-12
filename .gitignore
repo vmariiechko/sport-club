@@ -58,7 +58,6 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
@@ -132,9 +131,6 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
-
-# Sqlite3 temproary databsases
-*.sqlite3
 
 # Pycharm configuration folder
 .idea/
