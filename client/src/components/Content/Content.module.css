@@ -3,10 +3,14 @@
     flex-direction: column;
     flex: 1;
     background-color: #dedede;
+    background: url("../../assets/images/gym-wallpaper-3.jpg") no-repeat;
+    background-size: 100%, cover;
+    overflow-y: scroll;
 }
 
 .ContentInner {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    margin-top: 27vw;
+    background-color: #dedede;
+    padding: 15px 0;
 }

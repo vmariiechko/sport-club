@@ -1,6 +1,9 @@
 .HomePage {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    max-width: 1280px;
     height: 100%;
-    background: url("../../assets/images/gym-wallpaper-3.jpg") no-repeat;
-    background-size: 100%, cover;
+    margin: 0 auto;
+    padding: 0 15px;
 }

@@ -4,6 +4,7 @@
     align-items: center;
     height: 100px;
     background-color: #dedede;
+    border-bottom: 1px solid #bebebe;
 }
 
 .HeaderInner {

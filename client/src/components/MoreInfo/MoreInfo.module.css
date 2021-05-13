@@ -1,0 +1,74 @@
+.MoreInfo {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.Info {
+    flex: .5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.Question {
+    flex: .5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.Question .Inputs {
+    display: flex;
+    flex-direction:  column;
+    justify-content: space-between;
+    height: 120px;
+    margin: 15px 0;
+}
+
+.Question .Inputs input{
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background-color: #d1d1d1;
+    padding: 0 15px;
+    border-radius: 4px;
+}
+
+.Question .Inputs input:focus {
+    outline: none;
+}
+
+.Question .Submit {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 60px;
+    align-self: center;
+}
+
+.Info > div, .Question > div {
+    width: 80%;
+    min-width: 270px;
+}
+
+.Question > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.Icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 20px;
+    width: 120px;
+}
+
+.Icons > div {
+    cursor: pointer;
+    width: 20px;
+}
