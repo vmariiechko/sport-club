@@ -1,0 +1,39 @@
+.Intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.IntroInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 480px;
+    text-align: center;
+}
+
+.Image {
+    width: 270px;
+    height: 180px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.Image img {
+    width: 100%;
+    height: 100%;
+}
+
+.Text p:last-child {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+@media (max-width: 500px) {
+    .IntroInner {
+        max-width: 280px;
+    }
+}

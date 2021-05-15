@@ -31,8 +31,8 @@
     width: 100%;
     height: 100%;
     background-color: gray;
-    opacity: .5;
-    z-index: 0;
+    opacity: .8;
+    z-index: 1110;
 }
 
 i {
@@ -48,12 +48,12 @@ i {
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 35px;
-        z-index: 1;
+        z-index: 1111;
     }
     .Burger {
         display: inline-block;
         margin: 0 auto;
-        z-index: 1;
+        z-index: 1111;
     }
     .Navbar {
         display: flex;
