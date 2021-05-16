@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import classes from './Blog.module.css';
-import image1 from '../../assets/images/3.png';
-import image2 from '../../assets/images/1.jpg';
-import image3 from '../../assets/images/2.jpg';
-import image4 from '../../assets/images/4.jpg';
-import image5 from '../../assets/images/3.jpg';
 import Post from './Post/Post';
+import { toNewsBlock } from "../../store/navbarReducer/navbarReducer";
+import { setPostsAC } from "../../store/postsReducer/postsReducer";
 
-const Blog = () => {
+const Blog = ({scrollTo, setPosts, loading, posts}) => {
+    const BlogBlock = useRef(null);
+
+    useEffect(() => {
+        if (scrollTo === toNewsBlock) {
+            BlogBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [scrollTo]);
+
+    useEffect(() => {
+        setPosts();
+    }, []);
+
     return (
-        <div className={classes.Blog}>
+        <div ref={BlogBlock} className={classes.Blog}>
             <div className={classes.Header}>
                 <h2>Our Blog</h2>
                 <p>Welcome to our blog. Here we will post news and updates</p>
             </div>
             <div className={classes.Cards}>
-                <Post image={image1} />
-                <Post image={image2} />
-                <Post image={image3} />
-                <Post image={image4} />
-                <Post image={image5} />
+                {loading ?
+                    <div></div>
+                    :
+                    posts.map(post => <Post key={post.id} post={post} />)
+                }
             </div>
         </div>
     );
 };
 
-export default Blog;
+const mapStateToProps = state => ({
+    scrollTo: state.navbar.scrollTo,
+    loading: state.posts.loading,
+    posts: state.posts.posts
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setPosts: () => {
+            dispatch(setPostsAC())
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

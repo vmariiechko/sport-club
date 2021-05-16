@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import {toAboutBlock, toContactBlock, toTrainersBlock, toServicesBlock, toNewsBlock, setScrollToAC} from '../../store/navbarReducer/navbarReducer';
 import classes from './Navbar.module.css';
 
-const Navbar = (props) => {
+const Navbar = ({isMobile, setScrollTo}) => {
     const [isNavbarOpened, setIsNavbarOpened] = useState(false);
     const layoutDiv = useRef(null);
     const tabsDiv = useRef(null);
@@ -11,7 +12,7 @@ const Navbar = (props) => {
     const toggleNavbarHandler = () => setIsNavbarOpened(!isNavbarOpened);
 
     useEffect(() => {
-        if (props.isMobile) {
+        if (isMobile) {
             if (!isNavbarOpened) {
                 layoutDiv.current.style.display = 'none';
                 tabsDiv.current.style.display = 'none';
@@ -24,16 +25,21 @@ const Navbar = (props) => {
             tabsDiv.current.style.display = 'flex';
             setIsNavbarOpened(false);
         }
-    }, [isNavbarOpened, props.isMobile]);
+    }, [isNavbarOpened, isMobile]);
+
+    const navbarActions = (block) => {
+        setScrollTo(block);
+        setIsNavbarOpened(false);
+    }
 
     return (
         <div className={classes.Navbar}>
             <div ref={tabsDiv} className={classes.Tabs}>
-                <Link to='/'>News</Link>    
-                <Link to='/'>Programs</Link>
-                <Link to='/'>Trainers</Link>
-                <Link to='/'>About us</Link>
-                <Link to='/'>Contact</Link>
+                <Link onClick={() => navbarActions(toAboutBlock)} to='/'>About us</Link>
+                <Link onClick={() => navbarActions(toContactBlock)} to='/'>Contact</Link>
+                <Link onClick={() => navbarActions(toTrainersBlock)} to='/'>Trainers</Link>
+                <Link onClick={() => navbarActions(toServicesBlock)} to='/'>Services</Link>
+                <Link onClick={() => navbarActions(toNewsBlock)} to='/'>News</Link>    
                 <Link to='/profile'>Account</Link>
             </div>
             <div 
@@ -53,5 +59,11 @@ const Navbar = (props) => {
 };
 
 const mapStateToProps = state => ({isMobile: state.navbar.isMobile});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setScrollTo: scrollTo => dispatch(setScrollToAC(scrollTo))
+    };
+};
   
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

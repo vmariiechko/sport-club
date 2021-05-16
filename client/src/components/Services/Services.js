@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import classes from './Services.module.css';
-import image1 from '../../assets/images/3.png';
-import image2 from '../../assets/images/1.jpg';
-import image3 from '../../assets/images/2.jpg';
-import image4 from '../../assets/images/4.jpg';
-import image5 from '../../assets/images/3.jpg';
 import Service from './Service/Service';
+import { toServicesBlock } from "../../store/navbarReducer/navbarReducer";
+import { setPassesAC } from "../../store/servicesReducer/servicesReducer";
 
-const Services = () => {
+const Services = (props) => { 
+    const ServicesBlock = useRef(null);
+
+    useEffect(() => {
+        if (props.scrollTo === toServicesBlock) {
+            ServicesBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [props.scrollTo]);
+
+    useEffect(() => {
+        props.setPasses();
+    }, []);
+
     return (
-        <div className={classes.Services}>
+        <div ref={ServicesBlock} className={classes.Services}>
             <div className={classes.Header}>
                 <h2>Services</h2>
                 <p>Meet our Services of happy creatives. We love what we do and we would love to work with you.</p>
             </div>
             <div className={classes.Cards}>
-                <Service image={image1} />
-                <Service image={image2} />
-                <Service image={image3} />
-                <Service image={image4} />
-                <Service image={image5} />
+                {props.loading ?
+                    <div></div>
+                    :
+                    props.passes.map(pass => <Service key={pass.id} pass={pass} />)
+                }
             </div>
         </div>
     );
 };
 
-export default Services;
+
+const mapStateToProps = state => ({
+    scrollTo: state.navbar.scrollTo,
+    loading: state.services.loading,
+    passes: state.services.passes
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setPasses: () => {
+            dispatch(setPassesAC())
+        }
+    }
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Services);

@@ -7,12 +7,10 @@ import classes from './Content.module.css';
 const Content = (props) => {
     return (
         <div className={classes.Content}>
-            <div className={classes.ContentInner}>
-                <Switch>
-                    <Route exact path='/' component={HomePage}/>
-                    <Route exact path='/profile' component={ProfilePage}/>
-                </Switch>
-            </div>
+            <Switch>
+                <Route exact path='/' component={HomePage}/>
+                <Route exact path='/profile' component={ProfilePage}/>
+            </Switch>
         </div>
     );
 };

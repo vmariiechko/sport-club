@@ -1,12 +1,27 @@
+const SET_IS_MOBILE = 'SET_IS_MOBILE';
+const SET_SCROLL_TO = 'SET_SCROLL_TO';
+export const toAboutBlock = 'toAboutBlock';
+export const toContactBlock = 'toContactBlock';
+export const toTrainersBlock = 'toTrainersBlock';
+export const toServicesBlock = 'toServicesBlock';
+export const toNewsBlock = 'toNewsBlock';
+
 let initialState = {
-    isMobile: null
+    isMobile: null,
+    scrollTo: ''
 };
 
 const navbarReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_IS_MOBILE':
+        case SET_IS_MOBILE:
             return {
+                ...state,
                 isMobile: action.isMobile
+            };
+        case SET_SCROLL_TO:
+            return {
+                ...state,
+                scrollTo: action.scrollTo
             };
         default:
             return state;
@@ -33,6 +48,13 @@ export const setIsMobileAC = (prevWidth, curWidth) => {
     }
 }
 
-const setIsMobile = (isMobile) => ({type: 'SET_IS_MOBILE', isMobile});
+export const setScrollToAC = (scrollTo) => {
+    return dispatch => {
+        dispatch(setScrollTo(scrollTo));
+    }
+}
+
+const setIsMobile = (isMobile) => ({type: SET_IS_MOBILE, isMobile});
+const setScrollTo = (scrollTo) => ({type: SET_SCROLL_TO, scrollTo});
 
 export default navbarReducer;

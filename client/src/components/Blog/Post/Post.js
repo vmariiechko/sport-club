@@ -5,14 +5,18 @@ import InstaIcon from '../../../assets/images/insta_icon.svg';
 import FaceIcon from '../../../assets/images/face_icon.svg';
 import LinkedinIcon from '../../../assets/images/linkedin_icon.svg';
 import { ReactSVG } from 'react-svg';
+import toLocalDate from '../../../toLocalDate';
 
-const Post = ({image}) => {
+const Post = ({post}) => {
+    const {category, title, image, content, published} = post;
+    const timestamp = toLocalDate(published);
+    
     return (
         <div className={classes.Post}>
             <div className={classes.Data}>
-                <h3>END OF A HARD DAY</h3>
-                <h5>10 May, 2021</h5><br/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pharetra placerat purus, quis mattis ligula mattis et. Curabitur hendrerit lectus eget est finibus, ac malesuada sapien porttitor. Aliquam scelerisque suscipit tristique. Vivamus a augue dignissim, porttitor augue eu, facilisis dui. Ipsum placerat lacus</p><br/>
+                <h3>{title}</h3>
+                <h5>{timestamp}</h5><br/>
+                <p>{content}</p><br/>
             </div>
             <div className={classes.Image}>
                 <img src={image} alt=''/>

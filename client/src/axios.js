@@ -5,7 +5,7 @@ export const baseUrl = 'https://sport-club-dev.herokuapp.com/api';
 const token = localStorage.getItem('token');
 
 const instance = axios.create({
-    baseURL,
+    baseUrl,
     responseType: 'json',
     headers: {
         'Content-Type': 'application/json',

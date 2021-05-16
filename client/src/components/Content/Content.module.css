@@ -8,9 +8,8 @@
     overflow-y: scroll;
 }
 
-.ContentInner {
-    width: 100%;
-    margin-top: 27vw;
-    background-color: #dedede;
-    padding: 15px 0;
+@media (max-width: 500px) {
+    .Content {
+        background-size: calc(100% - 2px), cover;
+    }
 }

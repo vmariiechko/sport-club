@@ -1,9 +1,14 @@
 .HomePage {
+    margin-top: 27vw;
+    background-color: #dedede;
+}
+
+.HomePageInner {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 1280px;
-    height: 100%;
     margin: 0 auto;
     padding: 0 15px;
+    background-color: #dedede;
 }

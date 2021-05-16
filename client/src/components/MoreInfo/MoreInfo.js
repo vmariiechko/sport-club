@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import classes from './MoreInfo.module.css';
 import TwitterIcon from '../../assets/images/twitter_icon.svg';
 import InstaIcon from '../../assets/images/insta_icon.svg';
 import FaceIcon from '../../assets/images/face_icon.svg';
 import LinkedinIcon from '../../assets/images/linkedin_icon.svg';
+import { toAboutBlock, toContactBlock } from "../../store/navbarReducer/navbarReducer";
 
-const MoreInfo = () => {
+const MoreInfo = ({scrollTo}) => {
+    const InfoBlock = useRef(null);
+    const QuestionBlock = useRef(null);
+
+    useEffect(() => {
+        if (scrollTo === toAboutBlock) {
+            InfoBlock.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (scrollTo === toContactBlock) {
+            QuestionBlock.current.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+    }, [scrollTo]);
+
     return (
         <div className={classes.MoreInfo}>
-            <div className={classes.Info}>
+            <div ref={InfoBlock} className={classes.Info}>
                 <div>
                     <h1>BEST GYM ON MARS</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pharetra placerat purus, quis mattis ligula mattis et. Curabitur hendrerit lectus eget est finibus, ac malesuada sapien porttitor. Aliquam scelerisque suscipit tristique. Vivamus a augue dignissim, porttitor augue eu, facilisis dui. Ipsum placerat lacus</p><br/>
@@ -25,9 +38,9 @@ const MoreInfo = () => {
                     </div>
                 </div>
             </div>
-            <div className={classes.Question}>
+            <div ref={QuestionBlock} className={classes.Question}>
                 <div>
-                    <h2>Have a questions?</h2>
+                    <h2>Have a question?</h2>
                     <div className={classes.Inputs}>
                         <input placeholder='Your name'/>
                         <input placeholder='Your mail'/>
@@ -40,4 +53,6 @@ const MoreInfo = () => {
     );
 };
 
-export default MoreInfo;
+const mapStateToProps = state => ({scrollTo: state.navbar.scrollTo});
+  
+export default connect(mapStateToProps)(MoreInfo);

@@ -9,11 +9,13 @@ import classes from './HomePage.module.css';
 const HomePage = () => {
     return (
         <div className={classes.HomePage}>
-            <MoreInfo />
-            <Intro />
-            <Team />
-            <Services />
-            <Blog />
+            <div className={classes.HomePageInner}>
+                <MoreInfo />
+                <Intro />
+                <Team />
+                <Services />
+                <Blog />
+            </div>
         </div>
     );
 };
