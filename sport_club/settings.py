@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'blog_api.apps.BlogApiConfig',
     'cards_api.apps.CardsApiConfig',
+    'accounts_api.apps.AccountsApiConfig',
 
     'rest_framework',
     'corsheaders',
@@ -141,18 +142,31 @@ STATICFILES_DIRS = [
     BASE_DIR / 'client/build/static'
 ]
 
+
 # Media files
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
 
+
+# Override the default user model
+
+AUTH_USER_MODEL = 'accounts_api.Member'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Allow any website to make cross-origin requests
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+# Rest Framework settings
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
