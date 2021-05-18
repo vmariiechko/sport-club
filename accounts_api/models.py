@@ -54,6 +54,9 @@ class Member(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
 
+    def __str__(self):
+        return self.email
+
     def clean(self):
         if not self.avatar:
             raise ValidationError("The user avatar must be specified")
@@ -61,6 +64,3 @@ class Member(AbstractBaseUser, PermissionsMixin):
             w, h = get_image_dimensions(self.avatar)
             if w > 1080 or h > 1920:
                 raise ValidationError(f"Incorrect image dimensions: {w}x{h}, must be 1080x1920 or lower")
-
-    def __str__(self):
-        return self.email

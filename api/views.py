@@ -9,6 +9,7 @@ class APIOverview(APIView):
         'Post': '/posts/{id}',
         'Pass List': '/passes',
         'Pass': '/passes/{id}',
+        'Register User': '/users/register',
     }
 
     def get(self, request):

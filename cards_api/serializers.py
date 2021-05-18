@@ -3,6 +3,7 @@ from .models import Pass
 
 
 class PassSerializer(serializers.ModelSerializer):
+
     pricePerMonth = serializers.IntegerField(source='price_per_month', read_only=True)
 
     class Meta:
