@@ -3,6 +3,10 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
+def upload_to(instance, filename):
+    return f'users/avatars/{filename}'
+
+
 class MemberAccountManager(BaseUserManager):
 
     def crete_user(self, email, first_name, last_name, phone, password, **other_fields):
@@ -38,6 +42,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=50)
+    avatar = models.ImageField('Avatar', upload_to=upload_to, default='users/avatars/default.png')
     registration_date = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

@@ -32,7 +32,7 @@ class Post(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=200)
-    image = models.ImageField("Image", upload_to=upload_to, default='posts/default.jpg')
+    image = models.ImageField("Post Image", upload_to=upload_to, default='posts/default.jpg')
     content = models.TextField()
     slug = models.SlugField(max_length=200, unique_for_date='published')
     published = models.DateTimeField(default=timezone.now)

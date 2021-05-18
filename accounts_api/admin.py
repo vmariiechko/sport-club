@@ -9,7 +9,7 @@ class MemberAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'phone', 'is_active', 'is_staff')
     list_filter = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')
     fieldsets = (
-        (None, {'fields': ('email', 'first_name', 'last_name', 'phone')}),
+        (None, {'fields': ('email', 'first_name', 'last_name', 'phone', 'avatar')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Other', {'fields': ('registration_date', 'password')}),
     )

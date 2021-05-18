@@ -11,7 +11,7 @@ class Pass(models.Model):
 
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=200)
-    image = models.ImageField("Image", upload_to=upload_to, default='cards/default.jpg')
+    image = models.ImageField("Pass Image", upload_to=upload_to, default='cards/default.jpg')
     descripion = models.TextField()
     price_per_month = models.IntegerField(default=0)
     slug = models.SlugField(max_length=100)
