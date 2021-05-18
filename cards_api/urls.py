@@ -5,5 +5,5 @@ app_name = 'cards_api'
 
 urlpatterns = [
     path('', PassList.as_view(), name='pass_list'),
-    path('<str:pk>', PassDetail.as_view(), name='pass_detail')
+    path('<str:pk>/', PassDetail.as_view(), name='pass_detail')
 ]
