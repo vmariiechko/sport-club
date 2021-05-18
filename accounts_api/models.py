@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.exceptions import ValidationError
+from django.core.files.images import get_image_dimensions
 
 
 def upload_to(instance, filename):
@@ -51,6 +53,14 @@ class Member(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
+
+    def clean(self):
+        if not self.avatar:
+            raise ValidationError("The user avatar must be specified")
+        else:
+            w, h = get_image_dimensions(self.avatar)
+            if w > 1080 or h > 1920:
+                raise ValidationError(f"Incorrect image dimensions: {w}x{h}, must be 1080x1920 or lower")
 
     def __str__(self):
         return self.email
