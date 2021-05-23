@@ -11,6 +11,7 @@ class APIOverview(APIView):
         'Pass': '/passes/{id}/',
         'Register User': '/users/register/',
         'Logout User': '/users/logout/',
+        'Get User Data': '/users/me/',
         'Login User': '/token/',
         'Get new Access Token': '/token/refresh/',
     }

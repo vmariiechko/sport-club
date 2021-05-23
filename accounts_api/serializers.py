@@ -5,14 +5,14 @@ from .models import Member
 class RegisterMemberSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(required=True)
-    first_name = serializers.CharField(required=True)
-    last_name = serializers.CharField(required=True)
+    firstName = serializers.CharField(source='first_name', required=True)
+    lastName = serializers.CharField(source='last_name', required=True)
     phone = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
 
     class Meta:
         model = Member
-        fields = ('email', 'first_name', 'last_name', 'phone', 'password')
+        fields = ('email', 'firstName', 'lastName', 'phone', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -22,3 +22,13 @@ class RegisterMemberSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class MemberDetailSerializer(serializers.ModelSerializer):
+
+    firstName = serializers.CharField(source='first_name')
+    lastName = serializers.CharField(source='last_name')
+
+    class Meta:
+        model = Member
+        fields = ('email', 'firstName', 'lastName', 'phone', 'avatar')
