@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from .models import Member
 
@@ -8,20 +9,26 @@ class RegisterMemberSerializer(serializers.ModelSerializer):
     firstName = serializers.CharField(source='first_name', required=True)
     lastName = serializers.CharField(source='last_name', required=True)
     phone = serializers.CharField(required=True)
-    password = serializers.CharField(required=True)
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = Member
-        fields = ('email', 'firstName', 'lastName', 'phone', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ('email', 'firstName', 'lastName', 'phone', 'password', 'password2')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "The password fields didn't match."})
+        return attrs
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
-        instance = self.Meta.model(**validated_data)
+        password2 = validated_data.pop('password2', None)
+        member = self.Meta.model(**validated_data)
         if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+            member.set_password(password)
+        member.save()
+        return member
 
 
 class MemberDetailSerializer(serializers.ModelSerializer):
@@ -32,3 +39,4 @@ class MemberDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ('email', 'firstName', 'lastName', 'phone', 'avatar')
+        extra_kwargs = {'avatar': {'read_only': True}}
