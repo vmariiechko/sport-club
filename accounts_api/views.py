@@ -50,3 +50,12 @@ class MemberDetailViewSet(viewsets.ViewSet):
         member = self.get_object(request.user)
         serializer = MemberDetailSerializer(instance=member, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        member = self.get_object(request.user)
+        serializer = MemberDetailSerializer(instance=member, data=request.data,
+                                            context={'request': request}, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

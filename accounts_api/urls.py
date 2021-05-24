@@ -4,7 +4,7 @@ from .views import RegisterMember, BlacklistTokenView, MemberDetailViewSet
 app_name = 'accounts_api'
 
 urlpatterns = [
-    path('me/', MemberDetailViewSet.as_view({'get': 'retrieve'}), name='member_data'),
+    path('me/', MemberDetailViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='member_data'),
     path('register/', RegisterMember.as_view(), name='register_member'),
     path('logout/', BlacklistTokenView.as_view(), name='logout_member'),
 ]
