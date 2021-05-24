@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import RegisterMemberSerializer, MemberDetailSerializer
+from .serializers import RegisterMemberSerializer, MemberDetailSerializer, ChangeMemberPasswordSerializer
 from .models import Member
 
 
@@ -42,20 +42,26 @@ class MemberDetailViewSet(viewsets.ViewSet):
 
     permission_classes = [IsAuthenticated]
 
-    def get_object(self, email):
-        queryset = Member.objects.all()
-        return get_object_or_404(queryset, email=email)
-
     def retrieve(self, request, *args, **kwargs):
-        member = self.get_object(request.user)
-        serializer = MemberDetailSerializer(instance=member, context={'request': request})
+        serializer = MemberDetailSerializer(instance=request.user, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        member = self.get_object(request.user)
-        serializer = MemberDetailSerializer(instance=member, data=request.data,
+        serializer = MemberDetailSerializer(instance=request.user, data=request.data,
                                             context={'request': request}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangeMemberPassword(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        serializer = ChangeMemberPasswordSerializer(instance=request.user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
