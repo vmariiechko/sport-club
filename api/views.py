@@ -11,9 +11,10 @@ class APIOverview(APIView):
         'Pass': '/passes/{id}/',
         'Register User': '/users/register/',
         'Logout User': '/users/logout/',
+        'Login User': '/users/login/',
+        'Get new Access Token': '/users/login/refresh/',
         'Get User Data': '/users/me/',
-        'Login User': '/token/',
-        'Get new Access Token': '/token/refresh/',
+        'Change User Password': '/users/me/password',
     }
 
     def get(self, request):

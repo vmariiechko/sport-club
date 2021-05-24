@@ -18,7 +18,6 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
@@ -28,8 +27,6 @@ urlpatterns = [
     path('api/posts/', include('blog_api.urls')),
     path('api/passes/', include('cards_api.urls')),
     path('api/users/', include('accounts_api.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 # Allow to work with media folder localy
