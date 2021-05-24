@@ -10,7 +10,7 @@ from .serializers import RegisterMemberSerializer, MemberDetailSerializer, Chang
 from .models import Member
 
 
-class RegisterMember(APIView):
+class RegisterMemberView(APIView):
 
     permission_classes = [AllowAny]
 
@@ -23,9 +23,9 @@ class RegisterMember(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BlacklistTokenView(APIView):
+class LogoutMemberView(APIView):
 
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
@@ -36,6 +36,18 @@ class BlacklistTokenView(APIView):
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangeMemberPasswordView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        serializer = ChangeMemberPasswordSerializer(instance=request.user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MemberDetailViewSet(viewsets.ViewSet):
@@ -52,16 +64,4 @@ class MemberDetailViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ChangeMemberPassword(APIView):
-
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request):
-        serializer = ChangeMemberPasswordSerializer(instance=request.user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

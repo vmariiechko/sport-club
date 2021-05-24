@@ -14,6 +14,7 @@ class APIOverview(APIView):
         'Login User': '/users/login/',
         'Get new Access Token': '/users/login/refresh/',
         'Get User Data': '/users/me/',
+        'Update User Data': '/users/me/',
         'Change User Password': '/users/me/password',
     }
 
