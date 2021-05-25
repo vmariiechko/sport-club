@@ -66,3 +66,26 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         model = Member
         fields = ('email', 'firstName', 'lastName', 'phone', 'avatar')
         extra_kwargs = {'avatar': {'read_only': True}}
+
+
+class TokenObtainPairResponseSerializer(serializers.Serializer):
+
+    access = serializers.CharField()
+    refresh = serializers.CharField()
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
+
+
+class TokenRefreshResponseSerializer(serializers.Serializer):
+
+    access = serializers.CharField()
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()

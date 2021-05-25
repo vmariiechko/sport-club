@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from drf_yasg.utils import swagger_auto_schema
 
 
 class APIOverview(APIView):
+    """
+    Return all available endpoints.
+    """
+
     api_urls = {
         'Post List': '/posts/',
         'Post': '/posts/{id}/',
@@ -18,5 +24,8 @@ class APIOverview(APIView):
         'Change User Password': '/users/me/password',
     }
 
+    @swagger_auto_schema(responses={200: 'OK'})
     def get(self, request):
-        return Response(self.api_urls)
+
+        docs = {'API Documentation': reverse('schema-swagger-ui', request=request)}
+        return Response({**docs, **self.api_urls})

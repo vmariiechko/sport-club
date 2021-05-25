@@ -3,11 +3,19 @@ from .models import Post
 from .serializers import PostSerializer
 
 
-class PostList(generics.ListAPIView):
+class PostListView(generics.ListAPIView):
+    """
+    Return a list of all the published posts.
+    """
+
     queryset = Post.postobjects.all()
     serializer_class = PostSerializer
 
 
-class PostDetail(generics.RetrieveAPIView):
+class PostDetailView(generics.RetrieveAPIView):
+    """
+    Return the given post.
+    """
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
