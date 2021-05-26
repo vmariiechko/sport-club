@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'api.apps.ApiConfig',
-    'blog_api.apps.BlogApiConfig',
-    'cards_api.apps.CardsApiConfig',
-    'accounts_api.apps.AccountsApiConfig',
+    'api.blog_api.apps.BlogApiConfig',
+    'api.cards_api.apps.CardsApiConfig',
+    'api.accounts_api.apps.AccountsApiConfig',
 
     'rest_framework',
     'corsheaders',
@@ -74,7 +74,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'client/build',
-            BASE_DIR / 'accounts_api/templates',
+            BASE_DIR / 'api/accounts_api/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
