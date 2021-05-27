@@ -40,7 +40,7 @@ const Navbar = ({isMobile, setScrollTo}) => {
                 <Link onClick={() => navbarActions(toTrainersBlock)} to='/'>Trainers</Link>
                 <Link onClick={() => navbarActions(toServicesBlock)} to='/'>Services</Link>
                 <Link onClick={() => navbarActions(toNewsBlock)} to='/'>News</Link>    
-                <Link to='/profile'>Account</Link>
+                <Link onClick={() => setIsNavbarOpened(false)} to='/profile'>Account</Link>
             </div>
             <div 
                 ref={layoutDiv} 

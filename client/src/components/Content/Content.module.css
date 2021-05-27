@@ -5,7 +5,7 @@
     background-color: #dedede;
     background: url("../../assets/images/gym-wallpaper-3.jpg") no-repeat;
     background-size: 100%, cover;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 @media (max-width: 500px) {

@@ -1,3 +1,6 @@
+import {contentBlockId} from './components/Content/Content';
+
 export default function(offset) {
-    document.querySelector('#BlockWithScroll').scrollTo({top: offset - 100, behavior: 'smooth', block: 'center'});
+    const div = document.querySelector(`#${contentBlockId}`);
+    div.scrollTo({top: offset - div.getBoundingClientRect().top, behavior: 'smooth', block: 'center'});
 }
