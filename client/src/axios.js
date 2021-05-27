@@ -8,8 +8,7 @@ const instance = axios.create({
     baseUrl,
     responseType: 'json',
     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token ? 'Bearer ' + token : ''
+        'Content-Type': 'application/json'
     }
 });
 
