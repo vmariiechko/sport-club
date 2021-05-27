@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from datetime import timedelta
 
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -44,11 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'api.apps.ApiConfig',
-    'blog_api.apps.BlogApiConfig',
-    'cards_api.apps.CardsApiConfig',
+    'api.blog_api.apps.BlogApiConfig',
+    'api.cards_api.apps.CardsApiConfig',
+    'api.accounts_api.apps.AccountsApiConfig',
 
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +73,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'client/build'
+            BASE_DIR / 'client/build',
+            BASE_DIR / 'api/accounts_api/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -141,21 +146,85 @@ STATICFILES_DIRS = [
     BASE_DIR / 'client/build/static'
 ]
 
+
 # Media files
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
 
+
+# Override the default user model
+
+AUTH_USER_MODEL = 'accounts_api.Member'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Allow any website to make cross-origin requests
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+# Rest Framework settings
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+
+# JSON Web Token settings
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+# API Documentation settings
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'description': 'JWT Authorization',
+            'name': 'Authorization',
+            'in': 'header',
+        }
+    },
+    'LOGIN_URL': '/api-auth/login/',
+    'LOGOUT_URL': '/api-auth/logout/',
 }
