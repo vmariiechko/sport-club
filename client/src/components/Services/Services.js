@@ -4,13 +4,14 @@ import classes from './Services.module.css';
 import Service from './Service/Service';
 import { toServicesBlock } from "../../store/navbarReducer/navbarReducer";
 import { setPassesAC } from "../../store/servicesReducer/servicesReducer";
+import scrollToBlock from '../../scrollTo';
 
 const Services = (props) => { 
     const ServicesBlock = useRef(null);
 
     useEffect(() => {
         if (props.scrollTo === toServicesBlock) {
-            ServicesBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            scrollToBlock(ServicesBlock.current.offsetTop);
         }
     }, [props.scrollTo]);
 

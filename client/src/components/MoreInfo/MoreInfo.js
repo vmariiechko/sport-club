@@ -7,6 +7,7 @@ import InstaIcon from '../../assets/images/insta_icon.svg';
 import FaceIcon from '../../assets/images/face_icon.svg';
 import LinkedinIcon from '../../assets/images/linkedin_icon.svg';
 import { toAboutBlock, toContactBlock } from "../../store/navbarReducer/navbarReducer";
+import scrollToBlock from '../../scrollTo';
 
 const MoreInfo = ({scrollTo}) => {
     const InfoBlock = useRef(null);
@@ -14,9 +15,9 @@ const MoreInfo = ({scrollTo}) => {
 
     useEffect(() => {
         if (scrollTo === toAboutBlock) {
-            InfoBlock.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            scrollToBlock(InfoBlock.current.offsetTop);
         } else if (scrollTo === toContactBlock) {
-            QuestionBlock.current.scrollIntoView({behavior: 'smooth', block: 'center'});
+            scrollToBlock(QuestionBlock.current.offsetTop);
         }
     }, [scrollTo]);
 

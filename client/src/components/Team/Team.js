@@ -8,13 +8,14 @@ import image4 from '../../assets/images/4.jpg';
 import image5 from '../../assets/images/3.jpg';
 import Trainer from './Trainer/Trainer';
 import { toTrainersBlock } from "../../store/navbarReducer/navbarReducer";
+import scrollToBlock from '../../scrollTo';
 
 const Team = ({scrollTo}) => {
     const TeamBlock = useRef(null);
 
     useEffect(() => {
         if (scrollTo === toTrainersBlock) {
-            TeamBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            scrollToBlock(TeamBlock.current.offsetTop);
         }
     }, [scrollTo]);
 

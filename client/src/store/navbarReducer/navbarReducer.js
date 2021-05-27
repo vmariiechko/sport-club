@@ -51,6 +51,9 @@ export const setIsMobileAC = (prevWidth, curWidth) => {
 export const setScrollToAC = (scrollTo) => {
     return dispatch => {
         dispatch(setScrollTo(scrollTo));
+        setTimeout(() => {
+            dispatch(setScrollTo(null));
+        }, 500);
     }
 }
 

@@ -4,14 +4,14 @@ import classes from './Blog.module.css';
 import Post from './Post/Post';
 import { toNewsBlock } from "../../store/navbarReducer/navbarReducer";
 import { setPostsAC } from "../../store/postsReducer/postsReducer";
+import scrollToBlock from '../../scrollTo';
 
 const Blog = ({scrollTo, setPosts, loading, posts}) => {
     const BlogBlock = useRef(null);
 
     useEffect(() => {
         if (scrollTo === toNewsBlock) {
-            // BlogBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            document.querySelector('#BlockToScroll').scrollTo({top: BlogBlock.current.offsetTop - 100, behavior: 'smooth'})
+            scrollToBlock(BlogBlock.current.offsetTop);
         }
     }, [scrollTo]);
 
