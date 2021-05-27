@@ -10,7 +10,8 @@ const Blog = ({scrollTo, setPosts, loading, posts}) => {
 
     useEffect(() => {
         if (scrollTo === toNewsBlock) {
-            BlogBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // BlogBlock.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelector('#BlockToScroll').scrollTo({top: BlogBlock.current.offsetTop - 100, behavior: 'smooth'})
         }
     }, [scrollTo]);
 

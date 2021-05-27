@@ -6,7 +6,7 @@ import classes from './Content.module.css';
 
 const Content = (props) => {
     return (
-        <div className={classes.Content}>
+        <div className={classes.Content} id='BlockToScroll'>
             <Switch>
                 <Route exact path='/' component={HomePage}/>
                 <Route exact path='/profile' component={ProfilePage}/>
