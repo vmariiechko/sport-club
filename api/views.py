@@ -27,5 +27,5 @@ class APIOverview(APIView):
     @swagger_auto_schema(responses={200: 'OK'})
     def get(self, request):
 
-        docs = {'API Documentation': reverse('schema-swagger-ui', request=request)}
+        docs = {'API Documentation': reverse('api:schema-swagger-ui', request=request)}
         return Response({**docs, **self.api_urls})

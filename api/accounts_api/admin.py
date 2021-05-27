@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
-from .models import Member
+from .models import Member, Trainer
 
 
 class MemberAdmin(UserAdmin):
@@ -23,6 +23,12 @@ class MemberAdmin(UserAdmin):
     ordering = ('-registration_date',)
 
 
+class TrainerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name', 'rank')
+    search_fields = ('first_name', 'last_name')
+
+
 admin.site.register(Member, MemberAdmin)
+admin.site.register(Trainer, TrainerAdmin)
 admin.site.unregister(Group)
 admin.site.site_header = 'BEST GYM ON MARS'
