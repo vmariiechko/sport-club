@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -11,8 +11,8 @@ from drf_yasg.utils import swagger_auto_schema
 
 
 from .serializers import (RegisterMemberSerializer, MemberDetailSerializer, ChangeMemberPasswordSerializer,
-                          TokenObtainPairResponseSerializer, TokenRefreshResponseSerializer)
-from .models import Member
+                          TokenObtainPairResponseSerializer, TokenRefreshResponseSerializer, TrainerSerializer)
+from .models import Member, Trainer
 
 
 class RegisterMemberView(APIView):
@@ -109,3 +109,21 @@ class MemberDetailViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TrainerListView(generics.ListAPIView):
+    """
+    Return a list of trainers.
+    """
+
+    queryset = Trainer.objects.all()
+    serializer_class = TrainerSerializer
+
+
+class TrainerDetailView(generics.RetrieveAPIView):
+    """
+    Return the given trainer.
+    """
+
+    queryset = Trainer.objects.all()
+    serializer_class = TrainerSerializer

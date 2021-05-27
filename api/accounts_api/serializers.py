@@ -1,6 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from .models import Member
+from .models import Member, Trainer
 
 
 class RegisterMemberSerializer(serializers.ModelSerializer):
@@ -66,6 +66,16 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         model = Member
         fields = ('email', 'firstName', 'lastName', 'phone', 'avatar')
         extra_kwargs = {'avatar': {'read_only': True}}
+
+
+class TrainerSerializer(serializers.ModelSerializer):
+
+    firstName = serializers.CharField(source='first_name')
+    lastName = serializers.CharField(source='last_name')
+
+    class Meta:
+        model = Trainer
+        fields = ('id', 'firstName', 'lastName', 'rank', 'avatar')
 
 
 class TokenObtainPairResponseSerializer(serializers.Serializer):
