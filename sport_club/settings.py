@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'api.cards_api.apps.CardsApiConfig',
     'api.accounts_api.apps.AccountsApiConfig',
     'api.subscription_api.apps.SubscriptionApiConfig',
+    'api.reservation_api.apps.ReservationApiConfig',
 
     'rest_framework',
     'corsheaders',
