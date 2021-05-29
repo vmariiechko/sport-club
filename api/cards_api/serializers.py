@@ -10,3 +10,12 @@ class PassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pass
         fields = ('id', 'name', 'title', 'image', 'descripion', 'visitsCount', 'pricePerMonth')
+
+
+class PassNameSerializer(serializers.ModelSerializer):
+
+    card = serializers.CharField(source='name')
+
+    class Meta:
+        model = Pass
+        fields = ('card',)

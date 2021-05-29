@@ -10,6 +10,7 @@ def upload_to(instance, filename):
 
 
 class MemberAccountManager(BaseUserManager):
+    """Model manager for Member model."""
 
     def crete_user(self, email, first_name, last_name, phone, password, **other_fields):
 
@@ -39,6 +40,7 @@ class MemberAccountManager(BaseUserManager):
 
 
 class Member(AbstractBaseUser, PermissionsMixin):
+    """Model to represent clients."""
 
     email = models.EmailField(verbose_name='email address', unique=True)
     first_name = models.CharField(max_length=100)
@@ -65,8 +67,12 @@ class Member(AbstractBaseUser, PermissionsMixin):
             if w > 1080 or h > 1920:
                 raise ValidationError(f"Incorrect image dimensions: {w}x{h}, must be 1080x1920 or lower")
 
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name
+
 
 class Trainer(models.Model):
+    """Model to represent trainers."""
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
