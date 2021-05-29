@@ -14,6 +14,7 @@ class Pass(models.Model):
     image = models.ImageField("Pass Image", upload_to=upload_to, default='cards/default.jpg')
     descripion = models.TextField()
     visits_count = models.PositiveIntegerField(default=0)
+    with_trainer = models.BooleanField(default=False)
     price_per_month = models.PositiveIntegerField(default=0)
     slug = models.SlugField(max_length=100)
 
