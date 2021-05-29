@@ -7,6 +7,10 @@ import Team from '../../components/Team/Team';
 import classes from './HomePage.module.css';
 
 const HomePage = () => {
+    const onChildDidMount = () => {
+        console.log('Child component was mounted!');
+        // do something else
+      };
     return (
         <div className={classes.HomePage}>
             <div className={classes.HomePageInner}>
@@ -14,7 +18,7 @@ const HomePage = () => {
                 <Intro />
                 <Team />
                 <Services />
-                <Blog />
+                <Blog callback={onChildDidMount} />
             </div>
         </div>
     );
