@@ -20,9 +20,16 @@ class ReservationViewSet(viewsets.ViewSet):
 
     retrieve:
     Return the future client reservation.
+
+    destroy:
+    Delete the future client reservation.
     """
 
     permission_classes = [IsAuthenticated]
+
+    def get_object(self, member, pk):
+        queryset = Reservation.objects.filter(subscription__member=member, reserved_end__gt=timezone.now())
+        return get_object_or_404(queryset, pk=pk)
 
     @swagger_auto_schema(responses={200: ReservationSerializer})
     def list(self, request):
@@ -43,7 +50,12 @@ class ReservationViewSet(viewsets.ViewSet):
 
     @swagger_auto_schema(responses={200: ReservationSerializer})
     def retrieve(self, request, pk):
-        queryset = Reservation.objects.filter(subscription__member=request.user, reserved_end__gt=timezone.now())
-        instance = get_object_or_404(queryset, pk=pk)
+        instance = self.get_object(request.user, pk)
         serializer = ReservationSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @swagger_auto_schema(responses={200: 'OK'})
+    def destroy(self, request, pk):
+        instance = self.get_object(request.user, pk)
+        instance.delete()
+        return Response(status=status.HTTP_200_OK)

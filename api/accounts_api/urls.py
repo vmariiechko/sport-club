@@ -11,7 +11,8 @@ urlpatterns = [
     path('me/password', ChangeMemberPasswordView.as_view(), name='change-member-password'),
     path('me/subscription/', SubscriptionViewSet.as_view({'get': 'retrieve', 'post': 'create'}), name='subscription'),
     path('me/reservations/', ReservationViewSet.as_view({'get': 'list', 'post': 'create'}), name='reservation-list'),
-    path('me/reservations/<str:pk>/', ReservationViewSet.as_view({'get': 'retrieve'}), name='reservation-detail'),
+    path('me/reservations/<int:pk>/', ReservationViewSet.as_view(
+        {'get': 'retrieve', 'delete': 'destroy'}), name='reservation-detail'),
     path('register/', RegisterMemberView.as_view(), name='register-member'),
     path('logout/', LogoutMemberView.as_view(), name='logout-member'),
     path('login/', LoginMemberTokenObtainView.as_view(), name='token-obtain-pair'),
