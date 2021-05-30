@@ -37,3 +37,19 @@ class CreateReservationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"reservedRange": "The date-time difference between reservations "
                                                                 "must be from 1 to 10 hours"})
         return attrs
+
+
+class ReservationListSerializer(serializers.ModelSerializer):
+
+    status = serializers.CharField(source='get_status_display')
+    reservedStart = serializers.DateTimeField(source='reserved_start')
+    reservedEnd = serializers.DateTimeField(source='reserved_end')
+
+    class Meta:
+        model = Reservation
+        fields = ('trainer', 'status', 'reservedStart', 'reservedEnd', 'updated')
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['trainer'] = instance.trainer.get_full_name() if data['trainer'] else 'Not assigned'
+        return data
