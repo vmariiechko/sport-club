@@ -11,6 +11,13 @@ from .serializers import SubscriptionSerializer
 from .models import Subscription
 
 
+def get_subscription_object(member):
+    try:
+        return Subscription.objects.get(member=member, expires__gt=timezone.now(), visits_count__gt=0)
+    except Subscription.DoesNotExist:
+        raise NotFound(detail=f"The {member} doesn't have an active subscription")
+
+
 class SubscriptionViewSet(viewsets.ViewSet):
     """
     retrieve:
@@ -22,15 +29,9 @@ class SubscriptionViewSet(viewsets.ViewSet):
 
     permission_classes = [IsAuthenticated]
 
-    def get_object(self, member):
-        try:
-            return Subscription.objects.get(member=member, expires__gt=timezone.now(), visits_count__gt=0)
-        except Subscription.DoesNotExist:
-            raise NotFound(detail=f"The {member} doesn't have an active subscription")
-
     @swagger_auto_schema(responses={200: SubscriptionSerializer})
     def retrieve(self, request):
-        instance = self.get_object(request.user)
+        instance = get_subscription_object(request.user)
         serializer = SubscriptionSerializer(instance=instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

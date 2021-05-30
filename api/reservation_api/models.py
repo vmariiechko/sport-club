@@ -17,7 +17,7 @@ class Reservation(models.Model):
     )
 
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, null=True, blank=True)
     status = models.PositiveSmallIntegerField(choices=STATUS, default=REQUESTED)
     reserved_start = models.DateTimeField()
     reserved_end = models.DateTimeField()
