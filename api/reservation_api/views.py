@@ -1,11 +1,12 @@
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
-from .serializers import CreateReservationSerializer, ReservationListSerializer
+from .serializers import CreateReservationSerializer, ReservationSerializer
 from .models import Reservation
 
 
@@ -16,14 +17,17 @@ class ReservationViewSet(viewsets.ViewSet):
 
     create:
     Create a new client reservation.
+
+    retrieve:
+    Return the future client reservation.
     """
 
     permission_classes = [IsAuthenticated]
 
-    @swagger_auto_schema(responses={200: ReservationListSerializer})
+    @swagger_auto_schema(responses={200: ReservationSerializer})
     def list(self, request):
         queryset = Reservation.objects.filter(subscription__member=request.user, reserved_end__gt=timezone.now())
-        serializer = ReservationListSerializer(queryset, many=True)
+        serializer = ReservationSerializer(queryset, many=True)
         if serializer.data:
             return Response(serializer.data, status=status.HTTP_200_OK)
         error = {'detail': f"The {request.user} doesn't have reservations"}
@@ -36,3 +40,10 @@ class ReservationViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @swagger_auto_schema(responses={200: ReservationSerializer})
+    def retrieve(self, request, pk):
+        queryset = Reservation.objects.filter(subscription__member=request.user, reserved_end__gt=timezone.now())
+        instance = get_object_or_404(queryset, pk=pk)
+        serializer = ReservationSerializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -21,10 +21,10 @@ def get_subscription_object(member):
 class SubscriptionViewSet(viewsets.ViewSet):
     """
     retrieve:
-    Return the member's active subscription.
+    Return the client's active subscription.
 
     create:
-    Create a new subscription for member.
+    Create a new subscription for client.
     """
 
     permission_classes = [IsAuthenticated]

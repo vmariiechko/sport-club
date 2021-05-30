@@ -39,7 +39,7 @@ class CreateReservationSerializer(serializers.ModelSerializer):
         return attrs
 
 
-class ReservationListSerializer(serializers.ModelSerializer):
+class ReservationSerializer(serializers.ModelSerializer):
 
     status = serializers.CharField(source='get_status_display')
     reservedStart = serializers.DateTimeField(source='reserved_start')
@@ -47,7 +47,7 @@ class ReservationListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reservation
-        fields = ('trainer', 'status', 'reservedStart', 'reservedEnd', 'updated')
+        fields = ('id', 'trainer', 'status', 'reservedStart', 'reservedEnd', 'updated')
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
