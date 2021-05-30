@@ -21,6 +21,10 @@ class CreateReservationSerializer(serializers.ModelSerializer):
         subscription = get_subscription_object(member)
         attrs['subscription'] = subscription
 
+        if not subscription.card.with_trainer:
+            raise serializers.ValidationError({"subscription": "Active subscription doesn't include "
+                                                               "services of a personal trainer"})
+
         reserved_start = attrs['reserved_start']
         reserved_end = attrs['reserved_end']
 
