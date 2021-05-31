@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -216,6 +217,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+
 # API Documentation settings
 
 SWAGGER_SETTINGS = {
@@ -229,4 +231,11 @@ SWAGGER_SETTINGS = {
     },
     'LOGIN_URL': '/api-auth/login/',
     'LOGOUT_URL': '/api-auth/logout/',
+}
+
+
+# Django extensions: Graph model
+
+GRAPH_MODELS = {
+    'group_models': True,
 }
