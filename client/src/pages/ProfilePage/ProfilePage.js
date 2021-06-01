@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import classes from './ProfilePage.module.css';
-import profileImage from '../../assets/images/profileImage.png';
-import imageParams from '../../imageParams';
+import ProfileAccount from '../../components/ProfileAccount/ProfileAccount';
+import ProfileAuth from '../../components/ProfileAuth/ProfileAuth';
+import { connect } from 'react-redux';
 
-const ProfilePage = () => {
-    const [profileImgParams, setProfileImgParams] = useState(null);
-
-    useEffect(() => {
-        imageParams(profileImage).then(params => setProfileImgParams(params));
-    }, []);
+const ProfilePage = ({token}) => {
+    const isAuth = !!token;
     
     return (
         <div className={classes.ProfilePage}>
-            <div className={classes.ProfilePageInner}>
-                <div className={classes.Avatar}>
-                    <div className={classes.AvatarInner}>
-                        <img style={profileImgParams} src={profileImage} alt='' />
-                    </div>
-                </div>
-                <div className={classes.Menu}>
-                    <div className={classes.MenuInner}>
-                        <p>
-                            <span>INFO ABOUT PROGRAMS</span> /
-                            <span> CALENDAR</span> /
-                            <span> NUMBER OF WORKOUTS</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            {isAuth ? 
+                <ProfileAccount />
+                :
+                <ProfileAuth />
+            }
+
         </div>
     );
 };
 
-export default ProfilePage;
+const mapStateToProps = state => ({
+    token: state.auth.token
+});
+
+export default connect(mapStateToProps)(ProfilePage);

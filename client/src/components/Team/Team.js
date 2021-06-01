@@ -9,8 +9,9 @@ import image5 from '../../assets/images/3.jpg';
 import Trainer from './Trainer/Trainer';
 import { toTrainersBlock } from "../../store/navbarReducer/navbarReducer";
 import scrollToBlock from '../../scrollTo';
+import { setTrainersAC } from '../../store/TrainersReducer/TrainersReducer';
 
-const Team = ({scrollTo}) => {
+const Team = ({scrollTo, loading, trainers, setTrainers}) => {
     const TeamBlock = useRef(null);
 
     useEffect(() => {
@@ -19,6 +20,10 @@ const Team = ({scrollTo}) => {
         }
     }, [scrollTo]);
 
+    useEffect(() => {
+        setTrainers();
+    }, []);
+
     return (
         <div ref={TeamBlock} className={classes.Team}>
             <div className={classes.Header}>
@@ -26,16 +31,24 @@ const Team = ({scrollTo}) => {
                 <p>Meet our team of happy creatives. We love what we do and we would love to work with you.</p>
             </div>
             <div className={classes.Trainers}>
-                <Trainer image={image1} />
-                <Trainer image={image2} />
-                <Trainer image={image3} />
-                <Trainer image={image4} />
-                <Trainer image={image5} />
+                {loading ?
+                    <div></div>
+                    :
+                    trainers.map(trainer => <Trainer key={trainer.id} trainer={trainer} />)
+                }
             </div>
         </div>
     );
 };
 
-const mapStateToProps = state => ({scrollTo: state.navbar.scrollTo});
+const mapStateToProps = state => ({
+    scrollTo: state.navbar.scrollTo,
+    loading: state.trainers.loading,
+    trainers: state.trainers.trainers
+});
+
+const mapDispatchToProps = dispatch => ({
+    setTrainers: () => dispatch(setTrainersAC())
+});
   
-export default connect(mapStateToProps)(Team);
+export default connect(mapStateToProps, mapDispatchToProps)(Team);

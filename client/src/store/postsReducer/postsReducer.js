@@ -39,7 +39,7 @@ export const setPostsAC = () => {
     return dispatch => {
         dispatch(setPostsStarted());
 
-        axios.get(`${baseUrl}/posts`)
+        axios.get(`${baseUrl}/posts/`)
             .then(({data}) => {
                 // data.sort((a, b) => a.id - b.id);
                 dispatch(setPostsSuccess(data));

@@ -36,7 +36,6 @@ const Services = (props) => {
     );
 };
 
-
 const mapStateToProps = state => ({
     scrollTo: state.navbar.scrollTo,
     loading: state.services.loading,

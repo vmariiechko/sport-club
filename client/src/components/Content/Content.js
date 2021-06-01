@@ -9,9 +9,9 @@ export const contentBlockId = 'BlockWithScroll';
 const Content = () => {
     const ContentDiv = useRef(null);
 
-    useEffect(() => {
-        ContentDiv.current.addEventListener('scroll', () => console.log(true))
-    }, []);
+    // useEffect(() => {
+    //     ContentDiv.current.addEventListener('scroll', () => console.log(true))
+    // }, []);
     return (
         <div ref={ContentDiv} className={classes.Content} id={contentBlockId}>
             <Switch>
