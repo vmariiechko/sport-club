@@ -5,12 +5,10 @@ from .models import Member, Trainer
 
 class RegisterMemberSerializer(serializers.ModelSerializer):
 
-    email = serializers.EmailField(required=True)
-    firstName = serializers.CharField(source='first_name', required=True)
-    lastName = serializers.CharField(source='last_name', required=True)
-    phone = serializers.CharField(required=True)
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    firstName = serializers.CharField(source='first_name', max_length=100, required=True)
+    lastName = serializers.CharField(source='last_name', max_length=100, required=True)
+    password = serializers.CharField(write_only=True, max_length=20, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, max_length=20, required=True)
 
     class Meta:
         model = Member
