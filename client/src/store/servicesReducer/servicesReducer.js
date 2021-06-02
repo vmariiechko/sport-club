@@ -39,7 +39,7 @@ export const setPassesAC = () => {
     return dispatch => {
         dispatch(setPassesStarted());
 
-        axios.get(`${baseUrl}/passes`)
+        axios.get(`${baseUrl}/passes/`)
             .then(({data}) => {
                 data.sort((a, b) => a.id - b.id);
                 dispatch(setPassesSuccess(data));
