@@ -47,7 +47,7 @@ const MoreInfo = ({scrollTo}) => {
                         <input placeholder='Your mail'/>
                         <input placeholder='Your question'/>
                     </div>
-                    <div className={classes.Submit}>Send</div>
+                    <div className={classes.Submit}><span>Send</span></div>
                 </div>
             </div>
         </div>

@@ -1,20 +1,39 @@
 import axios, { baseUrl } from "../../axios";
 
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'LOGIN_FAILURE';
+const LOGIN_STARTED = 'LOGIN_STARTED';
+
 let initialState = {
-    token: null
+    token: null,
+    loading: false,
+    error: null
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN':
+        case LOGIN_STARTED:
+            return {
+                ...state,
+                loading: true
+            };
+        case LOGIN_SUCCESS:
             localStorage.setItem('token', JSON.stringify({
                 token: action.token
             }));
-            
+
             return {
                 ...state,
+                loading: false,
+                error: null,
                 token: action.token
-            }
+            };
+        case LOGIN_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            };
         case 'LOGOUT':
             localStorage.removeItem('token');
 
@@ -29,11 +48,39 @@ const authReducer = (state = initialState, action) => {
 
 export const login = (data) => {
     return dispatch => {
+        dispatch(loginStarted());
+        
         axios.post(`${baseUrl}/users/login/`, JSON.stringify({email: data.email, password: data.password}))
         .then(({data}) => {
-            dispatch(loginAC(data.access))
+            dispatch(loginSuccess(data.access))
         })
-        .catch((e) => console.log(e))
+        .catch(error => dispatch(loginFailure(error)))
+    }
+}
+
+export const register = (data) => {
+    return dispatch => {
+        dispatch(loginStarted());
+
+        axios.post(`${baseUrl}/users/register/`, JSON.stringify({
+            email: data.email, 
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phone: data.phone,
+            password: data.password,
+            password2: data.password2
+        }))
+        .then(() => {
+            axios.post(`${baseUrl}/users/login/`, JSON.stringify({
+                email: data.email, 
+                password: data.password
+            }))
+            .then(({data}) => {
+                dispatch(loginSuccess(data.access))
+            })
+            .catch(error => dispatch(loginFailure(error)))
+        })
+        .catch(error => dispatch(loginFailure(error)))
     }
 }
 
@@ -43,6 +90,20 @@ export const logout = () => {
     }
 }
 
-export const loginAC = (token) => ({type: 'LOGIN', token});
-export const logoutAC = () => ({type: 'LOGOUT'});
+const loginSuccess = token => ({
+    type: LOGIN_SUCCESS,
+    token
+});
+
+const loginStarted = () => ({
+    type: LOGIN_STARTED
+});
+
+const loginFailure = error => ({
+    type: LOGIN_FAILURE,
+    error
+});
+
+const logoutAC = () => ({type: 'LOGOUT'});
+
 export default authReducer;

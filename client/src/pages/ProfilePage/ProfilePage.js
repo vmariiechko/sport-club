@@ -14,7 +14,6 @@ const ProfilePage = ({token}) => {
                 :
                 <ProfileAuth />
             }
-
         </div>
     );
 };

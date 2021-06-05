@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    background-color: #dedede;
     background: url("../../assets/images/gym-wallpaper-3.jpg") no-repeat;
     background-size: 100%, cover;
+    background-color: #dedede;
     overflow-y: auto;
 }
 

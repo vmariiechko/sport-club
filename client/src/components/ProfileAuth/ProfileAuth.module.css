@@ -1,4 +1,82 @@
-.ProfileAuth span {
+.ProfileAuth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    background-color: #dedede;
+}
+
+.ProfileAuth .Inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+.ProfileAuth .Inputs input{
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background-color: #d1d1d1;
+    padding: 0 15px;
+    border-radius: 4px;
+}
+
+.ProfileAuth .Inputs input:not(:last-child){
+    margin-bottom: 15px;
+}
+
+.ProfileAuth .Inputs input:focus {
+    outline: none;
+}
+
+.ProfileAuth .Submit {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.ProfileAuth .Submit:hover {
+    background-color: black;
+    color: white;
+}
+
+.MoreInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MoreInfo .Icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 20px;
+    width: 120px;
+}
+
+.MoreInfo .Icons > div {
+    cursor: pointer;
+    width: 20px;
+}
+
+.ProfileAuth .SignUpLink {
     cursor: pointer;
     color: blue;
+}
+
+.ProfileAuth .SignUpLink:hover {
+    border-bottom: 1px solid blue;
+}
+
+.ProfileAuth .ErrorMessage {
+    color: red;
+    font-size: small;
 }
