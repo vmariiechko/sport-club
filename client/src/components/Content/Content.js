@@ -16,7 +16,7 @@ const Content = () => {
         <div ref={ContentDiv} className={classes.Content} id={contentBlockId}>
             <Switch>
                 <Route exact path='/' component={HomePage}/>
-                <Route exact path='/profile' component={ProfilePage}/>
+                <Route path='/profile' component={ProfilePage}/>
             </Switch>
         </div>
     );

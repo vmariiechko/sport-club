@@ -42,11 +42,9 @@ const mapStateToProps = state => ({
     posts: state.posts.posts
 });
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setPosts: () => {
-            dispatch(setPostsAC())
-        }
+const mapDispatchToProps = dispatch => ({
+    setPosts: () => {
+        dispatch(setPostsAC())
     }
-}
+})
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);

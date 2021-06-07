@@ -5,11 +5,9 @@ import ProfileAuth from '../../components/ProfileAuth/ProfileAuth';
 import { connect } from 'react-redux';
 
 const ProfilePage = ({token}) => {
-    const isAuth = !!token;
-    
     return (
         <div className={classes.ProfilePage}>
-            {isAuth ? 
+            {token ? 
                 <ProfileAccount />
                 :
                 <ProfileAuth />

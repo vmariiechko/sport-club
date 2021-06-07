@@ -31,6 +31,11 @@
     cursor: pointer;
 }
 
+.Button:hover {
+    background-color: #000;
+    color: white;
+}
+
 @media (max-width: 400px) {
     .Service {
         margin: 10px 0;

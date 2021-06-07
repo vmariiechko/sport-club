@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import {toAboutBlock, toContactBlock, toTrainersBlock, toServicesBlock, toNewsBlock, setScrollToAC} from '../../store/navbarReducer/navbarReducer';
 import classes from './Navbar.module.css';
 
-const Navbar = ({isMobile, setScrollTo}) => {
+const Navbar = ({isMobile, setScrollTo, isTrainersLoading, isPostsLoading, isServicesLoading}) => {
     const [isNavbarOpened, setIsNavbarOpened] = useState(false);
+    const [blockToScroll, setBlockToScroll] = useState('');
     const layoutDiv = useRef(null);
     const tabsDiv = useRef(null);
 
@@ -28,9 +29,16 @@ const Navbar = ({isMobile, setScrollTo}) => {
     }, [isNavbarOpened, isMobile]);
 
     const navbarActions = (block) => {
-        setScrollTo(block);
+        setTimeout(() => {
+            setBlockToScroll(block);
+        }, 100);
         setIsNavbarOpened(false);
     }
+
+    useEffect(() => {
+        if (!isTrainersLoading && !isPostsLoading && !isServicesLoading)
+            setScrollTo(blockToScroll);
+    }, [blockToScroll, isTrainersLoading, isPostsLoading, isServicesLoading])
 
     return (
         <div className={classes.Navbar}>
@@ -58,7 +66,12 @@ const Navbar = ({isMobile, setScrollTo}) => {
     );
 };
 
-const mapStateToProps = state => ({isMobile: state.navbar.isMobile});
+const mapStateToProps = state => ({
+    isMobile: state.navbar.isMobile,
+    isTrainersLoading: state.trainers.loading,
+    isPostsLoading: state.posts.loading,
+    isServicesLoading: state.services.loading
+});
 
 const mapDispatchToProps = dispatch => {
     return {
