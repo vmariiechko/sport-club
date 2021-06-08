@@ -22,7 +22,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     def validate_member(self, value):
         if Subscription.objects.filter(member=value, expires__gt=timezone.now(), visits_count__gt=0).exists():
-            raise serializers.ValidationError("Already have an active subscription")
+            raise serializers.ValidationError("You already have an active subscription")
         return value
 
     def create(self, validated_data):

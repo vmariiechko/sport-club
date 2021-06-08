@@ -15,7 +15,7 @@ def get_subscription_object(member):
     try:
         return Subscription.objects.get(member=member, expires__gt=timezone.now(), visits_count__gt=0)
     except Subscription.DoesNotExist:
-        raise NotFound(detail=f"The {member} doesn't have an active subscription")
+        raise NotFound(detail=f"You don't have an active subscription")
 
 
 class SubscriptionViewSet(viewsets.ViewSet):
