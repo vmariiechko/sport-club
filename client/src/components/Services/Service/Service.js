@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Service.module.css';
 
-const Service = ({pass}) => {
-    const {name, title, image, descripion, pricePerMonth} = pass;
+const Service = ({pass, buyPass}) => {
+    const {name, title, image, descripion, pricePerMonth, visitsCount} = pass;
 
     return (
         <div className={classes.Service}>
@@ -12,9 +12,12 @@ const Service = ({pass}) => {
             <div className={classes.Data}>
                 <h4>{name}</h4>
                 <h5>{title}</h5><br/>
-                <p>{descripion}</p><br/>
+                <p><strong>Price per month: </strong> {pricePerMonth}</p>
+                <p><strong>Visits count: </strong> {visitsCount}</p><br/>
             </div>
-            <div className={classes.Button}>BUY</div>
+            <div 
+                className={classes.Button}
+                onClick={() => buyPass(name)}>BUY</div>
         </div>
     );
 };

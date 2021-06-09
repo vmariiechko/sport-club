@@ -1,12 +1,41 @@
 .ProfileAccount {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     background-color: #dedede;
+}
+
+.Navbar {
+    text-align: center;
+}
+
+.Navbar > p > span {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.Navbar > p > span:hover, .Active {
+    border-bottom: 1px solid #000;
+    font-weight: 700;
+}
+
+.Navbar > p > span > a {
+    color: black;
+    text-decoration: none;
+}
+
+.Main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
 }
 
 .Avatar, .Menu {
@@ -29,27 +58,52 @@
     transform: translate(-50%, -50%);
 }
 
-.MenuInner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.MenuInner > p {
+.MenuInner > div {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
 }
 
-.MenuInner > p > span {
+.MenuInner input {
+    background-color: white;
+    color: #333333;
+    border: 1px solid #d9d9d9;
+    padding: 5px;
+    font-size: large;
+}
+
+.MenuInner input:focus {
+    outline: none;
+}
+
+.MenuInner .SaveData {
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    width: 30%;
+    color: white;
     cursor: pointer;
-    font-weight: 500;
+    background-color: #107cd1;
+    padding: 4px;
+    font-size: 15px;
+    margin-top: 40px;
 }
 
-.MenuInner > p > span:hover {
-    border-bottom: 1px solid #000;
-    font-weight: 700;
+.MenuInner .SaveData:hover {
+    background-color: #0f6cb3;
+}
+
+@media (max-width: 600px) {
+    .MenuInner input {
+        font-size: 15px;
+    }
+
+    .MenuInner .SaveData {
+        margin-top: 10px;
+    }
 }

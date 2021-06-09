@@ -6,6 +6,7 @@ const LOGIN_STARTED = 'LOGIN_STARTED';
 
 let initialState = {
     token: null,
+    refresh: null,
     loading: false,
     error: null
 };
@@ -19,14 +20,16 @@ const authReducer = (state = initialState, action) => {
             };
         case LOGIN_SUCCESS:
             localStorage.setItem('token', JSON.stringify({
-                token: action.token
+                token: action.token,
+                refresh: action.refresh
             }));
 
             return {
                 ...state,
                 loading: false,
                 error: null,
-                token: action.token
+                token: action.token,
+                refresh: action.refresh
             };
         case LOGIN_FAILURE:
             return {
@@ -34,13 +37,13 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.error
             };
-        case 'LOGOUT':
-            localStorage.removeItem('token');
+        // case 'LOGOUT':
+        //     localStorage.removeItem('token');
 
-            return {
-                ...state,
-                token: null
-            }
+        //     return {
+        //         ...state,
+        //         token: null
+        //     }
         default:
             return state;
     }
@@ -52,7 +55,7 @@ export const login = (data) => {
         
         axios.post(`${baseUrl}/users/login/`, JSON.stringify({email: data.email, password: data.password}))
         .then(({data}) => {
-            dispatch(loginSuccess(data.access))
+            dispatch(loginSuccess(data.access, data.refresh))
         })
         .catch(error => dispatch(loginFailure(error)))
     }
@@ -76,7 +79,7 @@ export const register = (data) => {
                 password: data.password
             }))
             .then(({data}) => {
-                dispatch(loginSuccess(data.access))
+                dispatch(loginSuccess(data.access, data.refresh))
             })
             .catch(error => dispatch(loginFailure(error)))
         })
@@ -90,9 +93,10 @@ export const logout = () => {
     }
 }
 
-const loginSuccess = token => ({
+export const loginSuccess = (token, refresh) => ({
     type: LOGIN_SUCCESS,
-    token
+    token, 
+    refresh
 });
 
 const loginStarted = () => ({
