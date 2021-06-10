@@ -25,6 +25,7 @@ urlpatterns = [
     path('posts/', include('api.blog_api.urls')),
     path('passes/', include('api.cards_api.urls')),
     path('users/', include('api.accounts_api.urls')),
+    path('staff/', include('api.staff_api.urls')),
     path('trainers/', TrainerListView.as_view(), name='trainer-list'),
     path('trainers/<str:pk>/', TrainerDetailView.as_view(), name='trainer-detail'),
 ]

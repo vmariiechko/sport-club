@@ -37,7 +37,7 @@ class ReservationViewSet(viewsets.ViewSet):
         serializer = ReservationSerializer(queryset, many=True)
         if serializer.data:
             return Response(serializer.data, status=status.HTTP_200_OK)
-        error = {'detail': f"You don't have reservations"}
+        error = {'detail': "You don't have reservations"}
         return Response(error, status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(request_body=CreateReservationSerializer, responses={201: CreateReservationSerializer})

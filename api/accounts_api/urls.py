@@ -15,6 +15,6 @@ urlpatterns = [
         {'get': 'retrieve', 'delete': 'destroy'}), name='reservation-detail'),
     path('register/', RegisterMemberView.as_view(), name='register-member'),
     path('logout/', LogoutMemberView.as_view(), name='logout-member'),
-    path('login/', LoginMemberTokenObtainView.as_view(), name='token-obtain-pair'),
+    path('login/', LoginMemberTokenObtainView.as_view(), name='member-token-obtain-pair'),
     path('login/refresh/', LoginMemberTokenRefreshView.as_view(), name='token-refresh'),
 ]
