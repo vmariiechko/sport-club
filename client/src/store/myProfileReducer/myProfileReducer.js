@@ -1,6 +1,6 @@
 import axios, { baseUrl } from "../../axios";
 import imageParams from "../../imageParams";
-import { loginSuccess, logout } from "../authReducer/authReducer";
+import { loginSuccess, logoutAC } from "../authReducer/authReducer";
 
 const SET_PROFILE_DATA_SUCCESS = 'SET_PROFILE_DATA_SUCCESS';
 const SET_PROFILE_DATA_FAILURE = 'SET_PROFILE_DATA_FAILURE';
@@ -58,8 +58,8 @@ export const setProfileData = () => {
                 .then(({data}) => {
                     dispatch(loginSuccess(data.access, refresh));
                 })
-                .catch((err) => {
-                    logout()
+                .catch(() => {
+                    dispatch(logoutAC());
                 })
             }
             else {
