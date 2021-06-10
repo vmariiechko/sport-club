@@ -45,7 +45,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email address', unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50, null=True, blank=True)
     avatar = models.ImageField('Avatar', upload_to=upload_to, default='users/avatars/default.png')
     registration_date = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
