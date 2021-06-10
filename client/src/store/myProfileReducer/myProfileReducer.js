@@ -58,7 +58,8 @@ export const setProfileData = () => {
                 .then(({data}) => {
                     dispatch(loginSuccess(data.access, refresh));
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.dir(err)
                     dispatch(logoutAC());
                 })
             }
