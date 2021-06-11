@@ -6,7 +6,7 @@ import { toServicesBlock } from "../../store/navbarReducer/navbarReducer";
 import { buyPass, setPasses } from "../../store/servicesReducer/servicesReducer";
 import scrollToBlock from '../../scrollTo';
 import Spinner from '../Spinner/Spinner';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 
 const Services = (props) => { 
     const history = useHistory();
