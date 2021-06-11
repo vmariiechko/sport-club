@@ -37,13 +37,14 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.error
             };
-        // case 'LOGOUT':
-        //     localStorage.removeItem('token');
+        case 'LOGOUT':
+            localStorage.removeItem('token');
 
-        //     return {
-        //         ...state,
-        //         token: null
-        //     }
+            return {
+                ...state,
+                token: null,
+                refresh: null
+            }
         default:
             return state;
     }
@@ -108,6 +109,6 @@ const loginFailure = error => ({
     error
 });
 
-const logoutAC = () => ({type: 'LOGOUT'});
+export const logoutAC = () => ({type: 'LOGOUT'});
 
 export default authReducer;

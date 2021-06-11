@@ -1,0 +1,69 @@
+.Reservations, .CreateReservation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Reservations, .Content {
+    width: 100%;
+}
+
+.Content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 15px;
+}
+
+.ReservationsTable {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    overflow-x: auto;
+    min-width: 450px;
+}
+
+.ReservationsTable table{
+    border-spacing: 7px;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 18px;
+}
+
+.ReservationsTable table td, .ReservationsTable table th{
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.ReservationsTable table thead tr, .ReservationsTable table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #000;
+}
+
+.CreateReservation {
+    padding: 15px;
+}
+
+.CreateReservation > *{
+    margin-bottom: 15px;
+}
+
+.Reservations .Submit {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.Reservations .Submit:hover {
+    background-color: black;
+    color: white;
+}
+
+@media (max-width: 850px) {
+    .ReservationsTable {
+        min-width: 250px;
+        justify-content: flex-start;
+    }
+}

@@ -1,6 +1,6 @@
 import axios, { baseUrl } from "../../axios";
 import imageParams from "../../imageParams";
-import { loginSuccess, logout } from "../authReducer/authReducer";
+import { loginSuccess, logoutAC } from "../authReducer/authReducer";
 
 const SET_PROFILE_DATA_SUCCESS = 'SET_PROFILE_DATA_SUCCESS';
 const SET_PROFILE_DATA_FAILURE = 'SET_PROFILE_DATA_FAILURE';
@@ -45,7 +45,7 @@ export const setProfileData = () => {
             headers: {'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token')).token}`}
         })
         .then(({data}) => {
-            imageParams(data.avatar)
+            imageParams(data.avatar, 80)
             .then(params => {
                 data['imageParams'] = params;
                 dispatch(setProfileDataSuccess(data));
@@ -59,15 +59,35 @@ export const setProfileData = () => {
                     dispatch(loginSuccess(data.access, refresh));
                 })
                 .catch((err) => {
-                    logout()
+                    dispatch(logoutAC());
                 })
             }
             else {
-                dispatch(setProfileDataFailure(err))
+                dispatch(setProfileDataFailure(err));
             }
         });
     };
 };
+
+export const postProfileData = ({email, firstName, lastName, phone}) => {
+    return dispatch => {
+        dispatch(setProfileDataStarted());
+
+        axios.put(`${baseUrl}/users/me/`, JSON.stringify({email, firstName, lastName, phone}), {
+            headers: {'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token')).token}`}
+        })
+        .then(({data}) => {
+            imageParams(data.avatar, 80)
+            .then(params => {
+                data['imageParams'] = params;
+                dispatch(setProfileDataSuccess(data));
+            });
+        })
+        .catch(err => {
+            dispatch(setProfileDataFailure(err.response.data));
+        });
+    }
+}
 
 const setProfileDataSuccess = profileData => ({
     type: SET_PROFILE_DATA_SUCCESS,
