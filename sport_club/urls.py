@@ -12,6 +12,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('profile/', TemplateView.as_view(template_name='index.html')),
+    path('profile/reservations', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'api.accounts_api.apps.AccountsApiConfig',
     'api.subscription_api.apps.SubscriptionApiConfig',
     'api.reservation_api.apps.ReservationApiConfig',
+    'api.staff_api.apps.StaffApiConfig',
 
     'rest_framework',
     'corsheaders',
