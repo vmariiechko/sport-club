@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -38,13 +39,20 @@ class LoginStaffTokenObtainView(TokenObtainPairView):
         return super().post(request, *args, **kwargs)
 
 
-class StaffReservationsViewSet(viewsets.ViewSet):
+class StaffReservationViewSet(viewsets.ViewSet):
     """
     list:
     Return all non-expired reservations.
+
+    update:
+    Modify the reservation information.
     """
 
     permission_classes = [IsAdminUser]
+
+    def get_object(self, pk):
+        queryset = Reservation.objects.all()
+        return get_object_or_404(queryset, pk=pk)
 
     @swagger_auto_schema(responses={200: StaffReservationSerializer})
     def list(self, request):
@@ -54,3 +62,12 @@ class StaffReservationsViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         error = {'detail': 'There are no requested reservations'}
         return Response(error, status=status.HTTP_404_NOT_FOUND)
+
+    @swagger_auto_schema(request_body=StaffReservationSerializer, responses={200: StaffReservationSerializer})
+    def update(self, request, pk):
+        reservation = self.get_object(pk)
+        serializer = StaffReservationSerializer(instance=reservation, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

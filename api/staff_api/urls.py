@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import LoginStaffTokenObtainView, StaffReservationsViewSet
+from .views import LoginStaffTokenObtainView, StaffReservationViewSet
 
 app_name = 'staff_api'
 
 urlpatterns = [
     path('login/', LoginStaffTokenObtainView.as_view(), name='staff-token-obtain-pair'),
-    path('reservations/', StaffReservationsViewSet.as_view({'get': 'list'}),
-         name='staff-reservation-list'),
+    path('reservations/', StaffReservationViewSet.as_view({'get': 'list'}), name='staff-reservation-list'),
+    path('reservations/<int:pk>/', StaffReservationViewSet.as_view({'put': 'update'}),
+         name='staff-reservation-detail'),
 ]

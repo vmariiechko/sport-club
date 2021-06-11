@@ -13,7 +13,7 @@ urlpatterns = [
     path('me/reservations/', ReservationViewSet.as_view({'get': 'list', 'post': 'create'}),
          name='member-reservation-list'),
     path('me/reservations/<int:pk>/', ReservationViewSet.as_view(
-        {'get': 'retrieve', 'delete': 'destroy'}), name='reservation-detail'),
+        {'get': 'retrieve', 'delete': 'destroy'}), name='member-reservation-detail'),
     path('register/', RegisterMemberView.as_view(), name='register-member'),
     path('logout/', LogoutMemberView.as_view(), name='logout-member'),
     path('login/', LoginMemberTokenObtainView.as_view(), name='member-token-obtain-pair'),
