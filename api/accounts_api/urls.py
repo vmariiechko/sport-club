@@ -10,7 +10,8 @@ urlpatterns = [
     path('me/', MemberDetailViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='member-data'),
     path('me/password', ChangeMemberPasswordView.as_view(), name='change-member-password'),
     path('me/subscription/', SubscriptionViewSet.as_view({'get': 'retrieve', 'post': 'create'}), name='subscription'),
-    path('me/reservations/', ReservationViewSet.as_view({'get': 'list', 'post': 'create'}), name='reservation-list'),
+    path('me/reservations/', ReservationViewSet.as_view({'get': 'list', 'post': 'create'}),
+         name='member-reservation-list'),
     path('me/reservations/<int:pk>/', ReservationViewSet.as_view(
         {'get': 'retrieve', 'delete': 'destroy'}), name='reservation-detail'),
     path('register/', RegisterMemberView.as_view(), name='register-member'),

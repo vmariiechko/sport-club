@@ -43,7 +43,7 @@ class CreateReservationSerializer(serializers.ModelSerializer):
         return attrs
 
 
-class ReservationSerializer(serializers.ModelSerializer):
+class MemberReservationSerializer(serializers.ModelSerializer):
 
     status = serializers.CharField(source='get_status_display')
     reservedStart = serializers.DateTimeField(source='reserved_start')

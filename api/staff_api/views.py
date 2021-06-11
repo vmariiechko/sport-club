@@ -1,10 +1,15 @@
-from rest_framework import status
+from django.utils import timezone
+
+from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from drf_yasg.utils import swagger_auto_schema
 
 from ..accounts_api.models import Member
 from ..accounts_api.serializers import TokenObtainPairResponseSerializer
+from ..reservation_api.models import Reservation
+from .serializers import StaffReservationSerializer
 
 
 class LoginStaffTokenObtainView(TokenObtainPairView):
@@ -31,3 +36,21 @@ class LoginStaffTokenObtainView(TokenObtainPairView):
             return Response(error, status=status.HTTP_401_UNAUTHORIZED)
 
         return super().post(request, *args, **kwargs)
+
+
+class StaffReservationsViewSet(viewsets.ViewSet):
+    """
+    list:
+    Return all non-expired reservations.
+    """
+
+    permission_classes = [IsAdminUser]
+
+    @swagger_auto_schema(responses={200: StaffReservationSerializer})
+    def list(self, request):
+        queryset = Reservation.objects.filter(reserved_end__gt=timezone.now())
+        serializer = StaffReservationSerializer(queryset, many=True)
+        if serializer.data:
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        error = {'detail': 'There are no requested reservations'}
+        return Response(error, status=status.HTTP_404_NOT_FOUND)

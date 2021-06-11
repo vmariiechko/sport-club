@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
-from .serializers import CreateReservationSerializer, ReservationSerializer
+from .serializers import CreateReservationSerializer, MemberReservationSerializer
 from .models import Reservation
 
 
@@ -31,10 +31,10 @@ class ReservationViewSet(viewsets.ViewSet):
         queryset = Reservation.objects.filter(subscription__member=member, reserved_end__gt=timezone.now())
         return get_object_or_404(queryset, pk=pk)
 
-    @swagger_auto_schema(responses={200: ReservationSerializer})
+    @swagger_auto_schema(responses={200: MemberReservationSerializer})
     def list(self, request):
         queryset = Reservation.objects.filter(subscription__member=request.user, reserved_end__gt=timezone.now())
-        serializer = ReservationSerializer(queryset, many=True)
+        serializer = MemberReservationSerializer(queryset, many=True)
         if serializer.data:
             return Response(serializer.data, status=status.HTTP_200_OK)
         error = {'detail': "You don't have reservations"}
@@ -48,10 +48,10 @@ class ReservationViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @swagger_auto_schema(responses={200: ReservationSerializer})
+    @swagger_auto_schema(responses={200: MemberReservationSerializer})
     def retrieve(self, request, pk):
         instance = self.get_object(request.user, pk)
-        serializer = ReservationSerializer(instance)
+        serializer = MemberReservationSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(responses={200: 'OK'})
