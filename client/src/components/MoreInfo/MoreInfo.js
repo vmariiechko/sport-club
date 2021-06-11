@@ -17,6 +17,7 @@ const MoreInfo = ({scrollTo}) => {
         question: ''
     });
     const [loading, setLoading] = useState(false);
+    const [isQuestionSended, setIsQuestionSended] = useState(false);
     const InfoBlock = useRef(null);
     const QuestionBlock = useRef(null);
 
@@ -39,6 +40,7 @@ const MoreInfo = ({scrollTo}) => {
                 email: '',
                 question: ''
             });
+            setIsQuestionSended(true);
         }, 500);
     }
 
@@ -69,6 +71,7 @@ const MoreInfo = ({scrollTo}) => {
                         <input name='email' onChange={(e) => onChangeQuestion(e)} value={questionData.email} placeholder='Your mail'/>
                         <input name='question' onChange={(e) => onChangeQuestion(e)} value={questionData.question} placeholder='Your question'/>
                     </div>
+                    {isQuestionSended && <><div style={{color: 'green', fontSize: 'small'}}>We will contact you soon!</div><br/></>}
                     <div onClick={sendQuestionHandler} className={classes.Submit}><span>Send</span></div>
                 </div>
             </div>
