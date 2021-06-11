@@ -5,14 +5,15 @@ import { Route, Switch, useHistory, useParams, useRouteMatch } from 'react-route
 import Subscriptions from '../Subscriptions/Subscriptions';
 import {Link} from 'react-router-dom';
 import Reservations from '../Reservations/Reservations';
-import { setProfileData } from '../../store/myProfileReducer/myProfileReducer';
+import { postProfileData, setProfileData } from '../../store/myProfileReducer/myProfileReducer';
 import Spinner from '../Spinner/Spinner';
 import classes from "./ProfileAccount.module.css";
 
 const subscriptions = 'subscriptions';
 const reservations = 'reservations';
 
-const ProfileAccount = ({logoutHandler, setProfileDataHandler, loading, profileData, error}) => {
+const ProfileAccount = ({logoutHandler, setProfileDataHandler, postProfileDataHandler, loading, pData, error}) => {
+    const [profileData, setData] = useState({});
     const history = useHistory();
     const pathName = history.location.pathname;
     let { path, url } = useRouteMatch();
@@ -21,10 +22,22 @@ const ProfileAccount = ({logoutHandler, setProfileDataHandler, loading, profileD
         setProfileDataHandler();
     }, []);
 
+    useEffect(() => {
+        if (pData)
+            setData({
+                email: pData.email,
+                firstName: pData.firstName,
+                lastName: pData.lastName,
+                phone: pData.phone
+            });
+    }, [pData]);
+
     const onLogout = () => {
         logoutHandler(); 
         history.push('/profile');
     }
+
+    const changeProfileData = e => setData({...profileData, [e.target.name]: e.target.value});
 
     return (
         <div className={classes.ProfileAccount}>
@@ -56,21 +69,25 @@ const ProfileAccount = ({logoutHandler, setProfileDataHandler, loading, profileD
                         :
                         <><div className={classes.Avatar}>
                                 <div className={classes.AvatarInner}>
-                                    <img style={profileData.imageParams} src={profileData.avatar} alt='' />
+                                    <img style={pData.imageParams} src={pData.avatar} alt='' />
                                 </div>
                             </div>
                             <div className={classes.Menu}>
                                 <div className={classes.MenuInner}>
                                     <div>
                                         <span>First name</span>
-                                        <input value={profileData.firstName} />
+                                        {error && <div className={classes.ErrorMessage}>{error.firstName}</div>}
+                                        <input onChange={(e) => changeProfileData(e)} name='firstName' value={profileData.firstName} />
                                         <span>Last name</span>
-                                        <input value={profileData.lastName}/>
+                                        {error && <div className={classes.ErrorMessage}>{error.lastName}</div>}
+                                        <input onChange={(e) => changeProfileData(e)} name='lastName' value={profileData.lastName}/>
                                         <span>Email</span>
-                                        <input value={profileData.email}/>
+                                        {error && <div className={classes.ErrorMessage}>{error.email}</div>}
+                                        <input onChange={(e) => changeProfileData(e)} name='email' value={profileData.email}/>
                                         <span>Phone</span>
-                                        <input value={profileData.phone}/>
-                                        <div className={classes.SaveData}><span>Save</span></div>
+                                        {error && <div className={classes.ErrorMessage}>{error.phone}</div>}
+                                        <input onChange={(e) => changeProfileData(e)} name='phone' value={profileData.phone}/>
+                                        <div onClick={() => postProfileDataHandler(profileData)} className={classes.SaveData}><span>Save</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +106,7 @@ const Topic = () => {
 }
 
 const mapStateToProps = state => ({
-    profileData: state.myProfile.profileData,
+    pData: state.myProfile.profileData,
     loading: state.myProfile.loading,
     error: state.myProfile.error
 });
@@ -100,6 +117,9 @@ const mapDispatchToProps = dispatch => ({
     },
     setProfileDataHandler: () => {
         dispatch(setProfileData())
+    },
+    postProfileDataHandler: (data) => {
+        dispatch(postProfileData(data))
     }
 });
 

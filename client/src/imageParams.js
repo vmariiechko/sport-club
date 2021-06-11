@@ -1,4 +1,4 @@
-function imageParams(data) {
+function imageParams(data, size = 100) {
     return new Promise((res, rej) => {
         if (typeof(data) === 'string') {
             solve(data).then(params => res(params));
@@ -21,9 +21,9 @@ function imageParams(data) {
                 img.onload = () => { 
                     resolve(
                         img.width >= img.height ? 
-                        {height: '100%', minWidth: '100%', width: 'none', minHeight: 'none'} 
+                        {height: `${size}%`, minWidth: `${size}%`, width: 'none', minHeight: 'none'} 
                         : 
-                        {height: 'none', minWidth: 'none', width: '100%', minHeight: '100%'}
+                        {height: 'none', minWidth: 'none', width: `${size}%`, minHeight: `${size}%`}
                     );
                 }
             });

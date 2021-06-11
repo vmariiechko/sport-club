@@ -98,6 +98,11 @@
     background-color: #0f6cb3;
 }
 
+.ProfileAccount .ErrorMessage {
+    color: red;
+    font-size: small;
+}
+
 @media (max-width: 600px) {
     .MenuInner input {
         font-size: 15px;

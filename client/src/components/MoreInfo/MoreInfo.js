@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import classes from './MoreInfo.module.css';
@@ -8,8 +8,15 @@ import FaceIcon from '../../assets/images/face_icon.svg';
 import LinkedinIcon from '../../assets/images/linkedin_icon.svg';
 import { toAboutBlock, toContactBlock } from "../../store/navbarReducer/navbarReducer";
 import scrollToBlock from '../../scrollTo';
+import Spinner from '../Spinner/Spinner';
 
 const MoreInfo = ({scrollTo}) => {
+    const [questionData, setQuestionData] = useState({
+        name: '',
+        email: '',
+        question: ''
+    });
+    const [loading, setLoading] = useState(false);
     const InfoBlock = useRef(null);
     const QuestionBlock = useRef(null);
 
@@ -20,9 +27,24 @@ const MoreInfo = ({scrollTo}) => {
             scrollToBlock(QuestionBlock.current.offsetTop);
         }
     }, [scrollTo]);
+    
+    const onChangeQuestion = e => setQuestionData({...questionData, [e.target.name]: e.target.value});
+
+    const sendQuestionHandler = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setQuestionData({
+                name: '',
+                email: '',
+                question: ''
+            });
+        }, 500);
+    }
 
     return (
         <div className={classes.MoreInfo}>
+            {loading && <Spinner />}
             <div ref={InfoBlock} className={classes.Info}>
                 <div>
                     <h1>BEST GYM ON MARS</h1>
@@ -43,11 +65,11 @@ const MoreInfo = ({scrollTo}) => {
                 <div>
                     <h2>Have a question?</h2>
                     <div className={classes.Inputs}>
-                        <input placeholder='Your name'/>
-                        <input placeholder='Your mail'/>
-                        <input placeholder='Your question'/>
+                        <input name='name' onChange={(e) => onChangeQuestion(e)} value={questionData.name} placeholder='Your name'/>
+                        <input name='email' onChange={(e) => onChangeQuestion(e)} value={questionData.email} placeholder='Your mail'/>
+                        <input name='question' onChange={(e) => onChangeQuestion(e)} value={questionData.question} placeholder='Your question'/>
                     </div>
-                    <div className={classes.Submit}><span>Send</span></div>
+                    <div onClick={sendQuestionHandler} className={classes.Submit}><span>Send</span></div>
                 </div>
             </div>
         </div>
