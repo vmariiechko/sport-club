@@ -1,6 +1,7 @@
 from django.utils import timezone
 from rest_framework import serializers
 from ..reservation_api.models import Reservation
+from ..subscription_api.models import Subscription
 
 
 class StaffChoiseField(serializers.ChoiceField):
@@ -52,4 +53,26 @@ class StaffReservationSerializer(serializers.ModelSerializer):
         data['subscription'] = str(instance.subscription.card)
         data['trainer'] = instance.trainer.get_full_name() if data['trainer'] else 'Not assigned'
         data['status'] = str(instance.get_status_display())
+        return data
+
+
+class StaffSubscriptionSerializer(serializers.ModelSerializer):
+
+    email = serializers.CharField(source="member.email", read_only=True)
+
+    class Meta:
+        model = Subscription
+        fields = ('id', 'email', 'member', 'card', 'visits_count', 'purchased', 'expires')
+        extra_kwargs = {
+            'member': {'read_only': True},
+            'card': {'read_only': True},
+            'visits_count': {'required': True},
+            'purchased': {'read_only': True},
+            'expires': {'read_only': True}
+        }
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['member'] = instance.member.get_full_name()
+        data['card'] = str(instance.card)
         return data
