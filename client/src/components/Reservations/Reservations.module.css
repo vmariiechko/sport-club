@@ -61,6 +61,16 @@
     color: white;
 }
 
+.Reservations form {
+    width: 210px;
+}
+
+.Reservations .Error {
+    color: red;
+    font-size: small;
+    text-align: center;
+}
+
 @media (max-width: 850px) {
     .ReservationsTable {
         min-width: 250px;

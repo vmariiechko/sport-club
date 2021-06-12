@@ -5,28 +5,34 @@ import Spinner from '../Spinner/Spinner';
 import classes from './Reservations.module.css';
 import TextField from '@material-ui/core/TextField';
 
-const countOffset = (date) => {
-    return new Date(Date.parse(date) - new Date(date).getTimezoneOffset() * 60000);
-}
-const fixDateForCalendar = (date) => countOffset(date).toISOString();
+const timeOffset = new Date(Date.now()).getTimezoneOffset() * 60000;
 
-const fixDateForTable = (date) => {
-    const milli = new Date(Date.parse(date) + new Date(date).getTimezoneOffset() * 60000);
-    const splitDate = milli.toDateString().split(' ');
-    return `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]} ${milli.toTimeString().replace(/gmt.*$/i, '')}`;
+const fixDateForServer = (d) => {
+    try {
+        return new Date(d).toISOString();
+    } catch {
+        return new Date(Date.now() + 86400000).toISOString();
+    }
+}
+const fixDateForCalendar = (d) => new Date(Date.parse(new Date(d)) - timeOffset).toISOString();
+
+const fixDateForTable = (d) => {
+    const date = new Date(d);
+    const splitDate = date.toDateString().split(' ');
+    return `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]} ${date.toTimeString().replace(/gmt.*$/i, '')}`;
 }
 
 const Reservations = ({setReservationsHandler, error, loading, reservations, orderReservationHandler}) => {
-    const [dateForCalendarFrom, setDateForCalendarFrom] = useState(fixDateForCalendar(new Date(Date.now() + 86400000)).replace(/\:..\..*$/, ''));
-    const [dateForCalendarTo, setDateForCalendarTo] = useState(fixDateForCalendar(new Date(Date.now() + 90060000)).replace(/\:..\..*$/, ''));
-    const [dateForServer, setDateForServer] = useState([fixDateForCalendar(dateForCalendarFrom), fixDateForCalendar(dateForCalendarTo)]);
+    const [dateForCalendarFrom, setDateForCalendarFrom] = useState(fixDateForCalendar(Date.now() + 86400000).replace(/\:..\..*$/, ''));
+    const [dateForCalendarTo, setDateForCalendarTo] = useState(fixDateForCalendar(Date.now() + 90060000).replace(/\:..\..*$/, ''));
+    const [dateForServer, setDateForServer] = useState([]);
 
     useEffect(() => {
         setReservationsHandler();
     }, []);
 
     useEffect(() => {
-        setDateForServer([fixDateForCalendar(dateForCalendarFrom), fixDateForCalendar(dateForCalendarTo)]);
+        setDateForServer([fixDateForServer(dateForCalendarFrom), fixDateForServer(dateForCalendarTo)]);
     }, [dateForCalendarFrom, dateForCalendarTo]);
 
     return (
@@ -36,11 +42,11 @@ const Reservations = ({setReservationsHandler, error, loading, reservations, ord
             :
             <>
                 <h3>Your reservations</h3>
-                {error && <div style={{color: 'red'}}>{error.detail || error.subscription || error.reservedRange}</div>}
+                {error && <div className={classes.Error}>{error.detail || error.subscription || error.reservedRange}</div>}
                 <div className={classes.Content}>
                     <div className={classes.CreateReservation}>
                         <form className={classes.container} noValidate>
-                            {error && <div style={{color: 'red'}}>{error.reservedStart}</div>}
+                            {error && <div className={classes.Error}>{error.reservedStart}</div>}
                             <TextField
                                 id="datetime-local"
                                 label="Reservation start"
@@ -52,7 +58,7 @@ const Reservations = ({setReservationsHandler, error, loading, reservations, ord
                             />
                         </form>
                         <form className={classes.container} noValidate>
-                            {error && <div style={{color: 'red'}}>{error.reservedEnd}</div>}
+                            {error && <div className={classes.Error}>{error.reservedEnd}</div>}
                             <TextField
                                 id="datetime-local"
                                 label="Reservation end"
