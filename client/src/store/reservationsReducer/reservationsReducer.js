@@ -67,7 +67,7 @@ const getReservations = (dispatch) => {
         dispatch(setReservationsSuccess(data));
     })
     .catch(err => {
-        dispatch(setReservationsFailure(err.response.data));
+        dispatch(setReservationsFailure(err?.response?.data));
     });
 }
 

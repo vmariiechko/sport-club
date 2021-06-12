@@ -11,9 +11,9 @@ const countOffset = (date) => {
 const fixDateForCalendar = (date) => countOffset(date).toISOString();
 
 const fixDateForTable = (date) => {
-    const withOffset = new Date(Date.parse(date) - new Date(date).getTimezoneOffset() * 60000);
-    const splitDate = withOffset.toDateString().split(' ');
-    return `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]} ${withOffset.toTimeString().replace(/gmt.*$/i, '')}`;
+    const milli = new Date(Date.parse(date) + new Date(date).getTimezoneOffset() * 60000);
+    const splitDate = milli.toDateString().split(' ');
+    return `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]} ${milli.toTimeString().replace(/gmt.*$/i, '')}`;
 }
 
 const Reservations = ({setReservationsHandler, error, loading, reservations, orderReservationHandler}) => {

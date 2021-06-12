@@ -76,7 +76,7 @@ export const buyPass = (card) => {
         dispatch(setBuyingStarted());
 
         axios.post(`${baseUrl}/users/me/subscription/`, JSON.stringify({card}), {
-            headers: {'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token')).token}`}
+            headers: {'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))?.token}`}
         })
         .then(() => {
             axios.get(`${baseUrl}/users/me/subscription/`,{
