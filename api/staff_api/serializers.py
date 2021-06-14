@@ -15,7 +15,7 @@ class StaffChoiseField(serializers.ChoiceField):
 class StaffReservationSerializer(serializers.ModelSerializer):
 
     member = serializers.CharField(source='subscription.member', read_only=True)
-    status = StaffChoiseField(Reservation.STATUS)
+    status = StaffChoiseField(Reservation.STATUS, required=False)
     reservedStart = serializers.DateTimeField(source='reserved_start')
     reservedEnd = serializers.DateTimeField(source='reserved_end')
 
