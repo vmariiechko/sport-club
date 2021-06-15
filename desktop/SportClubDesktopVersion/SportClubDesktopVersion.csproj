@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6354D6FC-6725-4BC9-891C-BE723AEBF071}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SportClubDesktopVersion</RootNamespace>
+    <AssemblyName>SportClubDesktopVersion</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.2.0.0\lib\net452\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddProductForm.Designer.cs">
+      <DependentUpon>AddProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateUserReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateUserReservationForm.Designer.cs">
+      <DependentUpon>CreateUserReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrainersBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainersBaseForm.Designer.cs">
+      <DependentUpon>TrainersBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminVersionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminVersionForm.Designer.cs">
+      <DependentUpon>AdminVersionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientsReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientsReservationForm.Designer.cs">
+      <DependentUpon>ClientsReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateNewClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateNewClientForm.Designer.cs">
+      <DependentUpon>CreateNewClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FoodBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FoodBaseForm.Designer.cs">
+      <DependentUpon>FoodBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyOfficeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyOfficeForm.Designer.cs">
+      <DependentUpon>MyOfficeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SearchClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchClientsForm.Designer.cs">
+      <DependentUpon>SearchClientsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchFoodBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchFoodBaseForm.Designer.cs">
+      <DependentUpon>SearchFoodBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartForm.Designer.cs">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainingForm.Designer.cs">
+      <DependentUpon>TrainingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingProcessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainingProcessForm.Designer.cs">
+      <DependentUpon>TrainingProcessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserPrefForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPrefForm.Designer.cs">
+      <DependentUpon>UserPrefForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserReservationForm.Designer.cs">
+      <DependentUpon>UserReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserVersionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserVersionForm.Designer.cs">
+      <DependentUpon>UserVersionForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddProductForm.resx">
+      <DependentUpon>AddProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateUserReservationForm.resx">
+      <DependentUpon>CreateUserReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrainersBaseForm.resx">
+      <DependentUpon>TrainersBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminVersionForm.resx">
+      <DependentUpon>AdminVersionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientsReservationForm.resx">
+      <DependentUpon>ClientsReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateNewClientForm.resx">
+      <DependentUpon>CreateNewClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FoodBaseForm.resx">
+      <DependentUpon>FoodBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyOfficeForm.resx">
+      <DependentUpon>MyOfficeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchClientsForm.resx">
+      <DependentUpon>SearchClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchFoodBaseForm.resx">
+      <DependentUpon>SearchFoodBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartForm.resx">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TrainingForm.resx">
+      <DependentUpon>TrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrainingProcessForm.resx">
+      <DependentUpon>TrainingProcessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserPrefForm.resx">
+      <DependentUpon>UserPrefForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserReservationForm.resx">
+      <DependentUpon>UserReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserVersionForm.resx">
+      <DependentUpon>UserVersionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="ProductsDataSet.xsc">
+      <DependentUpon>ProductsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ProductsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ProductsDataSet.xss">
+      <DependentUpon>ProductsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Products.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
