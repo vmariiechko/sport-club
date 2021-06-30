@@ -15,6 +15,13 @@ class APIOverview(APIView):
         'Post': '/posts/{id}/',
         'Pass List': '/passes/',
         'Pass': '/passes/{id}/',
+        'Trainer List': '/trainers/',
+        'Trainer': '/trainers/{id}/',
+        'Login Staff': '/staff/login/',
+        'Get All Users\' Subscription': '/staff/subscriptions/',
+        'Change Subscription': '/staff/subscriptions/{id}/',
+        'Get All Reservations': '/staff/reservations/',
+        'Change Reservation': '/staff/reservations/{id}/',
         'Register User': '/users/register/',
         'Logout User': '/users/logout/',
         'Login User': '/users/login/',
@@ -22,6 +29,12 @@ class APIOverview(APIView):
         'Get User Data': '/users/me/',
         'Update User Data': '/users/me/',
         'Change User Password': '/users/me/password',
+        'Get User Subscription': '/users/me/subscription',
+        'Create User Subscription': '/users/me/subscription',
+        'Get User Reservation List': '/users/me/reservations/',
+        'Create User Reservation': '/users/me/reservations/',
+        'Get User Reservation': '/users/me/reservations/{id}/',
+        'Delete User Reservation': '/users/me/reservations/{id}/',
     }
 
     @swagger_auto_schema(responses={200: 'OK'})
