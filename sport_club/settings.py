@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
+from dj_database_url import config
 
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -98,12 +99,7 @@ WSGI_APPLICATION = 'sport_club.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES['default'] = config(conn_max_age=600)
 
 
 # Password validation
