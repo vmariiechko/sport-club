@@ -64,7 +64,7 @@ This is a fitness club system with a website and desktop app.
 
 ### Site
 
-The [website][react-url] is deployed on Heroku.
+The website needs to be redeployed due to [Heroku free product plans removal][heroku-free-plan-removal].
 
 ![demo-site1]
 ![demo-site2]
@@ -137,7 +137,7 @@ This project is licensed under the terms of the **MIT** license.
 [heroku]: https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white
 [license]: https://img.shields.io/badge/license-MIT-%2341CD52.svg?&style=for-the-badge
 
-[react-url]: https://sport-club-dev.herokuapp.com/
+[heroku-free-plan-removal]: https://blog.heroku.com/next-chapter
 [django-rest-url]: https://sport-club-dev.herokuapp.com/api/
 [swagger-url]: https://sport-club-dev.herokuapp.com/api/docs/
 [architecture-url]: https://github.com/vmariiechko/sport-club/tree/main/media/Architecture
